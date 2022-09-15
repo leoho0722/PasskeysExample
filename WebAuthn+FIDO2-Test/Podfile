@@ -1,0 +1,9 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'WebAuthn+FIDO2-Test' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+  pod 'LoginSDK', :source => 'https://github.com/loginid1/LoginSDKSpecs.git'
+  
+end

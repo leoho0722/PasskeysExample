@@ -3,10 +3,13 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 55;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AE706A67FDF0987035288689 /* Pods_WebAuthn_FIDO2_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F33C8C64B9FA3FBAFF944E6 /* Pods_WebAuthn_FIDO2_Test.framework */; };
+		D00206AE28D308DC00B742E3 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00206AD28D308DC00B742E3 /* AuthenticationManager.swift */; };
+		D00206B028D3587400B742E3 /* apple-app-site-association.json in Resources */ = {isa = PBXBuildFile; fileRef = D00206AF28D3587400B742E3 /* apple-app-site-association.json */; };
 		D05D7B3B28D19B6400769585 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D7B3A28D19B6400769585 /* AppDelegate.swift */; };
 		D05D7B3D28D19B6400769585 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D7B3C28D19B6400769585 /* SceneDelegate.swift */; };
 		D05D7B4428D19B6500769585 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D05D7B4328D19B6500769585 /* Assets.xcassets */; };
@@ -14,7 +17,7 @@
 		D05D7B5028D19C0000769585 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D7B4E28D19C0000769585 /* MainViewController.swift */; };
 		D05D7B5128D19C0000769585 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D05D7B4F28D19C0000769585 /* MainViewController.xib */; };
 		D05D7B5628D19D2200769585 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D7B5528D19D2200769585 /* BaseViewController.swift */; };
-		D05D7B5828D19D9900769585 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D7B5728D19D9900769585 /* AuthenticationManager.swift */; };
+		D05D7B5828D19D9900769585 /* LoginManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D7B5728D19D9900769585 /* LoginManager.swift */; };
 		D05D7B5B28D1AB1800769585 /* Username.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D7B5A28D1AB1800769585 /* Username.swift */; };
 		D05D7B5E28D1AB9800769585 /* GenerateRegistrationOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D7B5D28D1AB9800769585 /* GenerateRegistrationOptions.swift */; };
 		D05D7B6028D1B60200769585 /* VerifyRegistrationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D7B5F28D1B60200769585 /* VerifyRegistrationResponse.swift */; };
@@ -24,6 +27,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1346D843E56D6816E86CF120 /* Pods-WebAuthn+FIDO2-Test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebAuthn+FIDO2-Test.debug.xcconfig"; path = "Target Support Files/Pods-WebAuthn+FIDO2-Test/Pods-WebAuthn+FIDO2-Test.debug.xcconfig"; sourceTree = "<group>"; };
+		2E1D8BE2B8208E0F2460BF19 /* Pods-WebAuthn+FIDO2-Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebAuthn+FIDO2-Test.release.xcconfig"; path = "Target Support Files/Pods-WebAuthn+FIDO2-Test/Pods-WebAuthn+FIDO2-Test.release.xcconfig"; sourceTree = "<group>"; };
+		6F33C8C64B9FA3FBAFF944E6 /* Pods_WebAuthn_FIDO2_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WebAuthn_FIDO2_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D00206AD28D308DC00B742E3 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		D00206AF28D3587400B742E3 /* apple-app-site-association.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "apple-app-site-association.json"; sourceTree = "<group>"; };
 		D05D7B3728D19B6400769585 /* WebAuthn+FIDO2-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WebAuthn+FIDO2-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D05D7B3A28D19B6400769585 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D05D7B3C28D19B6400769585 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -33,7 +41,7 @@
 		D05D7B4E28D19C0000769585 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		D05D7B4F28D19C0000769585 /* MainViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		D05D7B5528D19D2200769585 /* BaseViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
-		D05D7B5728D19D9900769585 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		D05D7B5728D19D9900769585 /* LoginManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginManager.swift; sourceTree = "<group>"; };
 		D05D7B5928D19E0900769585 /* WebAuthn+FIDO2-Test.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "WebAuthn+FIDO2-Test.entitlements"; sourceTree = "<group>"; };
 		D05D7B5A28D1AB1800769585 /* Username.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Username.swift; sourceTree = "<group>"; };
 		D05D7B5D28D1AB9800769585 /* GenerateRegistrationOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateRegistrationOptions.swift; sourceTree = "<group>"; };
@@ -48,17 +56,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE706A67FDF0987035288689 /* Pods_WebAuthn_FIDO2_Test.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C27CF768FA3DE457A3EE9989 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6F33C8C64B9FA3FBAFF944E6 /* Pods_WebAuthn_FIDO2_Test.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D05D7B2E28D19B6400769585 = {
 			isa = PBXGroup;
 			children = (
 				D05D7B3928D19B6400769585 /* WebAuthn+FIDO2-Test */,
 				D05D7B3828D19B6400769585 /* Products */,
+				F8E5284181480EE7F8B8CB63 /* Pods */,
+				C27CF768FA3DE457A3EE9989 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -73,6 +92,7 @@
 		D05D7B3928D19B6400769585 /* WebAuthn+FIDO2-Test */ = {
 			isa = PBXGroup;
 			children = (
+				D00206AF28D3587400B742E3 /* apple-app-site-association.json */,
 				D05D7B5928D19E0900769585 /* WebAuthn+FIDO2-Test.entitlements */,
 				D05D7B5428D19C2A00769585 /* Model */,
 				D05D7B5328D19C2500769585 /* View */,
@@ -108,8 +128,9 @@
 			children = (
 				D05D7B5C28D1AB3800769585 /* API */,
 				D05D7B6128D1BC1E00769585 /* Network */,
-				D05D7B5728D19D9900769585 /* AuthenticationManager.swift */,
+				D05D7B5728D19D9900769585 /* LoginManager.swift */,
 				D05D7B6628D1C04C00769585 /* Extension.swift */,
+				D00206AD28D308DC00B742E3 /* AuthenticationManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -133,6 +154,15 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		F8E5284181480EE7F8B8CB63 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1346D843E56D6816E86CF120 /* Pods-WebAuthn+FIDO2-Test.debug.xcconfig */,
+				2E1D8BE2B8208E0F2460BF19 /* Pods-WebAuthn+FIDO2-Test.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -140,9 +170,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D05D7B4B28D19B6500769585 /* Build configuration list for PBXNativeTarget "WebAuthn+FIDO2-Test" */;
 			buildPhases = (
+				86F58E2F6F546AC642D46437 /* [CP] Check Pods Manifest.lock */,
 				D05D7B3328D19B6400769585 /* Sources */,
 				D05D7B3428D19B6400769585 /* Frameworks */,
 				D05D7B3528D19B6400769585 /* Resources */,
+				F2327485E19F05D0D9269BF5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -169,7 +201,7 @@
 				};
 			};
 			buildConfigurationList = D05D7B3228D19B6400769585 /* Build configuration list for PBXProject "WebAuthn+FIDO2-Test" */;
-			compatibilityVersion = "Xcode 14.0";
+			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -194,10 +226,53 @@
 				D05D7B4728D19B6500769585 /* LaunchScreen.storyboard in Resources */,
 				D05D7B5128D19C0000769585 /* MainViewController.xib in Resources */,
 				D05D7B4428D19B6500769585 /* Assets.xcassets in Resources */,
+				D00206B028D3587400B742E3 /* apple-app-site-association.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		86F58E2F6F546AC642D46437 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-WebAuthn+FIDO2-Test-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F2327485E19F05D0D9269BF5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WebAuthn+FIDO2-Test/Pods-WebAuthn+FIDO2-Test-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WebAuthn+FIDO2-Test/Pods-WebAuthn+FIDO2-Test-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WebAuthn+FIDO2-Test/Pods-WebAuthn+FIDO2-Test-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D05D7B3328D19B6400769585 /* Sources */ = {
@@ -213,7 +288,8 @@
 				D05D7B5628D19D2200769585 /* BaseViewController.swift in Sources */,
 				D05D7B6028D1B60200769585 /* VerifyRegistrationResponse.swift in Sources */,
 				D05D7B3B28D19B6400769585 /* AppDelegate.swift in Sources */,
-				D05D7B5828D19D9900769585 /* AuthenticationManager.swift in Sources */,
+				D00206AE28D308DC00B742E3 /* AuthenticationManager.swift in Sources */,
+				D05D7B5828D19D9900769585 /* LoginManager.swift in Sources */,
 				D05D7B3D28D19B6400769585 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -348,6 +424,7 @@
 		};
 		D05D7B4C28D19B6500769585 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1346D843E56D6816E86CF120 /* Pods-WebAuthn+FIDO2-Test.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -362,7 +439,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -381,6 +458,7 @@
 		};
 		D05D7B4D28D19B6500769585 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E1D8BE2B8208E0F2460BF19 /* Pods-WebAuthn+FIDO2-Test.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -395,7 +473,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

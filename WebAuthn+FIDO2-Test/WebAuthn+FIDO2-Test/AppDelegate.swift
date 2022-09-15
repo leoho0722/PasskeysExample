@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import LoginSDK
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +15,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
+        let clientId = "ShgyzQT3aMupnbpfLqg-9fc7TOx6UV38hesg29NoECDDuMYIxUZ6EhFMFOWBAlVe0tQop0JkHKgOWddUoj4saA"
+        let baseURL = "https://cdd97960-34b5-11ed-927a-8df8692a31b3.usw1.loginid.io"
+        
+        LoginApi.client.configure(clientId: clientId, baseURL: baseURL)
         return true
     }
 

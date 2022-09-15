@@ -8,11 +8,74 @@
 import UIKit
 
 class MainViewController: BaseViewController {
-
+    
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var registerButton: UIButton!
+    @IBOutlet weak var authenticationButton: UIButton!
+    @IBOutlet weak var usePassKeysSwitch: UISwitch!
+    
+    let loginManager = LoginManager()
+    let authenticationManager = AuthenticationManager()
+    
+    var username: String = ""
+    var password: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        registerAccount()
+        loginManager.authToken = UUID().uuidString
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    @IBAction func registerBtnClicked(_ sender: UIButton) {
+        
+        guard let usernameTF = usernameTextField.text else { return }
+        username = usernameTF
+        
+        if usePassKeysSwitch.isOn {
+//            guard let window = self.view.window else {
+//                fatalError("The view was not in the app's view hierarchy!")
+//            }
+//            authenticationManager.signUpWith(userName: username, anchor: window)
+            registerAccount()
+        } else {
+            loginManager.signUpWithFIDO2(username: username) { registerResults in
+                switch registerResults {
+                case .success(let success):
+                    print("Register Success：", success.success)
+                    print("Register Success：", success.jwt)
+                case .failure(let failure):
+                    print("Register Failure：", failure)
+                }
+            }
+        }
+    }
+    
+    @IBAction func authenticationBtnClicked(_ sender: UIButton) {
+        
+        if usePassKeysSwitch.isOn {
+            guard let window = self.view.window else {
+                fatalError("The view was not in the app's view hierarchy!")
+            }
+            authenticationManager.signInWith(anchor: window, preferImmediatelyAvailableCredentials: true)
+        } else {
+            loginManager.authenticateWithFIDO2(username: username) { authenticateResults in
+                switch authenticateResults {
+                case .success(let success):
+                    print("Authenticate Success：", success.success)
+                    print("Authenticate Success：", success.jwt)
+                case .failure(let failure):
+                    print("Authenticate Failure：", failure)
+                }
+            }
+        }
+    }
+}
+
+extension MainViewController {
     
     func registerAccount() {
         // MARK: Step1 POST Username
@@ -37,7 +100,7 @@ class MainViewController: BaseViewController {
     }
     
     private func postUsername() {
-        let request = UsernameRequest(username: "leoho")
+        let request = UsernameRequest(username: username)
         
         Task {
             do {
