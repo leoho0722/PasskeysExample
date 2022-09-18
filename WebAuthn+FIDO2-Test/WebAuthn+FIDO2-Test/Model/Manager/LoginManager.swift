@@ -10,6 +10,8 @@ import LoginSDK
 
 class LoginManager: NSObject {
     
+    static let shared = LoginManager()
+    
     // MARK: - LoginSDK Register、Authenticate
     
     var authToken: String? = nil

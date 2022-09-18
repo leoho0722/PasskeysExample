@@ -10,6 +10,19 @@
 		AE706A67FDF0987035288689 /* Pods_WebAuthn_FIDO2_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F33C8C64B9FA3FBAFF944E6 /* Pods_WebAuthn_FIDO2_Test.framework */; };
 		D00206AE28D308DC00B742E3 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00206AD28D308DC00B742E3 /* AuthenticationManager.swift */; };
 		D00206B028D3587400B742E3 /* apple-app-site-association.json in Resources */ = {isa = PBXBuildFile; fileRef = D00206AF28D3587400B742E3 /* apple-app-site-association.json */; };
+		D00206B328D42A2300B742E3 /* WebAuthnManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00206B228D42A2300B742E3 /* WebAuthnManager.swift */; };
+		D00206BA28D4755B00B742E3 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00206B828D4755B00B742E3 /* AuthenticationViewController.swift */; };
+		D00206BB28D4755B00B742E3 /* AuthenticationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00206B928D4755B00B742E3 /* AuthenticationViewController.xib */; };
+		D00206BF28D4766A00B742E3 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00206BD28D4766A00B742E3 /* RegisterViewController.swift */; };
+		D00206C028D4766A00B742E3 /* RegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00206BE28D4766A00B742E3 /* RegisterViewController.xib */; };
+		D00206C528D6E9AF00B742E3 /* WebAuthnKitRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00206C328D6E9AF00B742E3 /* WebAuthnKitRegisterViewController.swift */; };
+		D00206C628D6E9AF00B742E3 /* WebAuthnKitRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00206C428D6E9AF00B742E3 /* WebAuthnKitRegisterViewController.xib */; };
+		D00206C928D6E9DE00B742E3 /* WebAuthnKitAuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00206C728D6E9DE00B742E3 /* WebAuthnKitAuthenticationViewController.swift */; };
+		D00206CA28D6E9DE00B742E3 /* WebAuthnKitAuthenticationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00206C828D6E9DE00B742E3 /* WebAuthnKitAuthenticationViewController.xib */; };
+		D00206CD28D6EA1200B742E3 /* LoginSDKRegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00206CB28D6EA1200B742E3 /* LoginSDKRegisterViewController.swift */; };
+		D00206CE28D6EA1200B742E3 /* LoginSDKRegisterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00206CC28D6EA1200B742E3 /* LoginSDKRegisterViewController.xib */; };
+		D00206D128D6EA2300B742E3 /* LoginSDKAuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00206CF28D6EA2300B742E3 /* LoginSDKAuthenticationViewController.swift */; };
+		D00206D228D6EA2300B742E3 /* LoginSDKAuthenticationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D00206D028D6EA2300B742E3 /* LoginSDKAuthenticationViewController.xib */; };
 		D05D7B3B28D19B6400769585 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D7B3A28D19B6400769585 /* AppDelegate.swift */; };
 		D05D7B3D28D19B6400769585 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D7B3C28D19B6400769585 /* SceneDelegate.swift */; };
 		D05D7B4428D19B6500769585 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D05D7B4328D19B6500769585 /* Assets.xcassets */; };
@@ -32,6 +45,19 @@
 		6F33C8C64B9FA3FBAFF944E6 /* Pods_WebAuthn_FIDO2_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WebAuthn_FIDO2_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D00206AD28D308DC00B742E3 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		D00206AF28D3587400B742E3 /* apple-app-site-association.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "apple-app-site-association.json"; sourceTree = "<group>"; };
+		D00206B228D42A2300B742E3 /* WebAuthnManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAuthnManager.swift; sourceTree = "<group>"; };
+		D00206B828D4755B00B742E3 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
+		D00206B928D4755B00B742E3 /* AuthenticationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuthenticationViewController.xib; sourceTree = "<group>"; };
+		D00206BD28D4766A00B742E3 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		D00206BE28D4766A00B742E3 /* RegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterViewController.xib; sourceTree = "<group>"; };
+		D00206C328D6E9AF00B742E3 /* WebAuthnKitRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAuthnKitRegisterViewController.swift; sourceTree = "<group>"; };
+		D00206C428D6E9AF00B742E3 /* WebAuthnKitRegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebAuthnKitRegisterViewController.xib; sourceTree = "<group>"; };
+		D00206C728D6E9DE00B742E3 /* WebAuthnKitAuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebAuthnKitAuthenticationViewController.swift; sourceTree = "<group>"; };
+		D00206C828D6E9DE00B742E3 /* WebAuthnKitAuthenticationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebAuthnKitAuthenticationViewController.xib; sourceTree = "<group>"; };
+		D00206CB28D6EA1200B742E3 /* LoginSDKRegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSDKRegisterViewController.swift; sourceTree = "<group>"; };
+		D00206CC28D6EA1200B742E3 /* LoginSDKRegisterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginSDKRegisterViewController.xib; sourceTree = "<group>"; };
+		D00206CF28D6EA2300B742E3 /* LoginSDKAuthenticationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSDKAuthenticationViewController.swift; sourceTree = "<group>"; };
+		D00206D028D6EA2300B742E3 /* LoginSDKAuthenticationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginSDKAuthenticationViewController.xib; sourceTree = "<group>"; };
 		D05D7B3728D19B6400769585 /* WebAuthn+FIDO2-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WebAuthn+FIDO2-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D05D7B3A28D19B6400769585 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D05D7B3C28D19B6400769585 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +95,49 @@
 				6F33C8C64B9FA3FBAFF944E6 /* Pods_WebAuthn_FIDO2_Test.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D00206B128D42A0B00B742E3 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				D05D7B5728D19D9900769585 /* LoginManager.swift */,
+				D00206AD28D308DC00B742E3 /* AuthenticationManager.swift */,
+				D00206B228D42A2300B742E3 /* WebAuthnManager.swift */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		D00206BC28D475DC00B742E3 /* ASAuthorization */ = {
+			isa = PBXGroup;
+			children = (
+				D00206BD28D4766A00B742E3 /* RegisterViewController.swift */,
+				D00206BE28D4766A00B742E3 /* RegisterViewController.xib */,
+				D00206B828D4755B00B742E3 /* AuthenticationViewController.swift */,
+				D00206B928D4755B00B742E3 /* AuthenticationViewController.xib */,
+			);
+			path = ASAuthorization;
+			sourceTree = "<group>";
+		};
+		D00206C128D4769800B742E3 /* WebAuthnKit-iOS */ = {
+			isa = PBXGroup;
+			children = (
+				D00206C328D6E9AF00B742E3 /* WebAuthnKitRegisterViewController.swift */,
+				D00206C428D6E9AF00B742E3 /* WebAuthnKitRegisterViewController.xib */,
+				D00206C728D6E9DE00B742E3 /* WebAuthnKitAuthenticationViewController.swift */,
+				D00206C828D6E9DE00B742E3 /* WebAuthnKitAuthenticationViewController.xib */,
+			);
+			path = "WebAuthnKit-iOS";
+			sourceTree = "<group>";
+		};
+		D00206C228D476A300B742E3 /* LoginSDK */ = {
+			isa = PBXGroup;
+			children = (
+				D00206CB28D6EA1200B742E3 /* LoginSDKRegisterViewController.swift */,
+				D00206CC28D6EA1200B742E3 /* LoginSDKRegisterViewController.xib */,
+				D00206CF28D6EA2300B742E3 /* LoginSDKAuthenticationViewController.swift */,
+				D00206D028D6EA2300B742E3 /* LoginSDKAuthenticationViewController.xib */,
+			);
+			path = LoginSDK;
 			sourceTree = "<group>";
 		};
 		D05D7B2E28D19B6400769585 = {
@@ -112,6 +181,9 @@
 				D05D7B5528D19D2200769585 /* BaseViewController.swift */,
 				D05D7B4E28D19C0000769585 /* MainViewController.swift */,
 				D05D7B4F28D19C0000769585 /* MainViewController.xib */,
+				D00206C228D476A300B742E3 /* LoginSDK */,
+				D00206C128D4769800B742E3 /* WebAuthnKit-iOS */,
+				D00206BC28D475DC00B742E3 /* ASAuthorization */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -126,11 +198,10 @@
 		D05D7B5428D19C2A00769585 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D00206B128D42A0B00B742E3 /* Manager */,
 				D05D7B5C28D1AB3800769585 /* API */,
 				D05D7B6128D1BC1E00769585 /* Network */,
-				D05D7B5728D19D9900769585 /* LoginManager.swift */,
 				D05D7B6628D1C04C00769585 /* Extension.swift */,
-				D00206AD28D308DC00B742E3 /* AuthenticationManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -223,10 +294,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D00206BB28D4755B00B742E3 /* AuthenticationViewController.xib in Resources */,
+				D00206CA28D6E9DE00B742E3 /* WebAuthnKitAuthenticationViewController.xib in Resources */,
+				D00206C628D6E9AF00B742E3 /* WebAuthnKitRegisterViewController.xib in Resources */,
 				D05D7B4728D19B6500769585 /* LaunchScreen.storyboard in Resources */,
+				D00206CE28D6EA1200B742E3 /* LoginSDKRegisterViewController.xib in Resources */,
+				D00206D228D6EA2300B742E3 /* LoginSDKAuthenticationViewController.xib in Resources */,
 				D05D7B5128D19C0000769585 /* MainViewController.xib in Resources */,
 				D05D7B4428D19B6500769585 /* Assets.xcassets in Resources */,
 				D00206B028D3587400B742E3 /* apple-app-site-association.json in Resources */,
+				D00206C028D4766A00B742E3 /* RegisterViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,15 +356,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D00206D128D6EA2300B742E3 /* LoginSDKAuthenticationViewController.swift in Sources */,
 				D05D7B6328D1BC4C00769585 /* NetworkManager.swift in Sources */,
+				D00206B328D42A2300B742E3 /* WebAuthnManager.swift in Sources */,
 				D05D7B5028D19C0000769585 /* MainViewController.swift in Sources */,
 				D05D7B6528D1BD8A00769585 /* NetworkConstants.swift in Sources */,
 				D05D7B5B28D1AB1800769585 /* Username.swift in Sources */,
+				D00206C928D6E9DE00B742E3 /* WebAuthnKitAuthenticationViewController.swift in Sources */,
+				D00206CD28D6EA1200B742E3 /* LoginSDKRegisterViewController.swift in Sources */,
 				D05D7B6728D1C04C00769585 /* Extension.swift in Sources */,
+				D00206BF28D4766A00B742E3 /* RegisterViewController.swift in Sources */,
 				D05D7B5E28D1AB9800769585 /* GenerateRegistrationOptions.swift in Sources */,
+				D00206BA28D4755B00B742E3 /* AuthenticationViewController.swift in Sources */,
 				D05D7B5628D19D2200769585 /* BaseViewController.swift in Sources */,
 				D05D7B6028D1B60200769585 /* VerifyRegistrationResponse.swift in Sources */,
 				D05D7B3B28D19B6400769585 /* AppDelegate.swift in Sources */,
+				D00206C528D6E9AF00B742E3 /* WebAuthnKitRegisterViewController.swift in Sources */,
 				D00206AE28D308DC00B742E3 /* AuthenticationManager.swift in Sources */,
 				D05D7B5828D19D9900769585 /* LoginManager.swift in Sources */,
 				D05D7B3D28D19B6400769585 /* SceneDelegate.swift in Sources */,

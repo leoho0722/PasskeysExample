@@ -5,7 +5,15 @@
 //  Created by Leo Ho on 2022/9/14.
 //
 
-import Foundation
+import UIKit
+
+extension UIButton {
+    
+    func setButtonTitle(title: String, state: UIControl.State = .normal) {
+        self.setTitle(title, for: state)
+    }
+}
+
 
 extension Encodable {
     
@@ -17,5 +25,18 @@ extension Encodable {
         }
         
         return dictionary
+    }
+}
+
+extension Dictionary {
+    
+    func toJsonString() -> String? {
+        guard let data = try? JSONSerialization.data(withJSONObject: self, options: []) else {
+            return nil
+        }
+        guard let str = String(data: data, encoding: .utf8) else {
+            return nil
+        }
+        return str
     }
 }

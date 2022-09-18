@@ -8,161 +8,64 @@
 import UIKit
 
 class MainViewController: BaseViewController {
+
+    /// LoginSDK
+    @IBOutlet weak var loginSDKRegisterButton: UIButton!
+    @IBOutlet weak var loginSDKAuthenticationButton: UIButton!
     
-    @IBOutlet weak var usernameTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var registerButton: UIButton!
-    @IBOutlet weak var authenticationButton: UIButton!
-    @IBOutlet weak var usePassKeysSwitch: UISwitch!
+    /// WebAuthnKit
+    @IBOutlet weak var webAuthnKitRegisterButton: UIButton!
+    @IBOutlet weak var webAuthnKitAuthenticationButton: UIButton!
     
-    let loginManager = LoginManager()
-    let authenticationManager = AuthenticationManager()
-    
-    var username: String = ""
-    var password: String = ""
+    /// ASAuthorization
+    @IBOutlet weak var asRegisterButton: UIButton!
+    @IBOutlet weak var asAuthenticationButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loginManager.authToken = UUID().uuidString
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        view.endEditing(true)
-    }
-    
-    @IBAction func registerBtnClicked(_ sender: UIButton) {
-        
-        guard let usernameTF = usernameTextField.text else { return }
-        username = usernameTF
-        
-        if usePassKeysSwitch.isOn {
-//            guard let window = self.view.window else {
-//                fatalError("The view was not in the app's view hierarchy!")
-//            }
-//            authenticationManager.signUpWith(userName: username, anchor: window)
-            registerAccount()
-        } else {
-            loginManager.signUpWithFIDO2(username: username) { registerResults in
-                switch registerResults {
-                case .success(let success):
-                    print("Register Success：", success.success)
-                    print("Register Success：", success.jwt)
-                case .failure(let failure):
-                    print("Register Failure：", failure)
-                }
-            }
-        }
-    }
-    
-    @IBAction func authenticationBtnClicked(_ sender: UIButton) {
-        
-        if usePassKeysSwitch.isOn {
-            guard let window = self.view.window else {
-                fatalError("The view was not in the app's view hierarchy!")
-            }
-            authenticationManager.signInWith(anchor: window, preferImmediatelyAvailableCredentials: true)
-        } else {
-            loginManager.authenticateWithFIDO2(username: username) { authenticateResults in
-                switch authenticateResults {
-                case .success(let success):
-                    print("Authenticate Success：", success.success)
-                    print("Authenticate Success：", success.jwt)
-                case .failure(let failure):
-                    print("Authenticate Failure：", failure)
-                }
-            }
-        }
-    }
-}
 
-extension MainViewController {
-    
-    func registerAccount() {
-        // MARK: Step1 POST Username
-        postUsername()
+        loginSDKRegisterButton.setButtonTitle(title: "LoginSDK-Register")
+        loginSDKAuthenticationButton.setButtonTitle(title: "LoginSDK-Authentication")
         
-        // MARK: Step2 GET Generate Registration Options
-        generateRegistrationOptions()
+        webAuthnKitRegisterButton.setButtonTitle(title: "WebAuthnKit-Register")
+        webAuthnKitAuthenticationButton.setButtonTitle(title: "WebAuthnKit-Authentication")
         
-        // MARK: Step3 POST Verify Registration Response
-        verifyRegistrationResponse()
+        asRegisterButton.setButtonTitle(title: "ASAuthorization-Register")
+        asAuthenticationButton.setButtonTitle(title: "ASAuthorization-Authentication")
     }
     
-    func verifyAccount() {
-        // MARK: Step1 POST Username
-        postUsername()
-        
-        // MARK: Step2 GET Generate Authentication Options
-        generateAuthenticationOptions()
-        
-        // MARK: Step3 POST Verify Authentication Response
-        verifyAuthenticationResponse()
-    }
-    
-    private func postUsername() {
-        let request = UsernameRequest(username: username)
-        
-        Task {
-            do {
-                let results: UsernameResponse = try await NetworkManager.shared.requestData(httpMethod: .post, path: .username, parameters: request)
-                print(results)
-            } catch NetworkConstants.RequestError.invalidRequest {
-                print("NetworkConstants.RequestError.invalidRequest")
-            } catch NetworkConstants.RequestError.authorizationError {
-                print("NetworkConstants.RequestError.authorizationError")
-            } catch NetworkConstants.RequestError.notFound {
-                print("NetworkConstants.RequestError.notFound")
-            } catch NetworkConstants.RequestError.internalError {
-                print("NetworkConstants.RequestError.internalError")
-            } catch NetworkConstants.RequestError.serverError {
-                print("NetworkConstants.RequestError.serverError")
-            } catch NetworkConstants.RequestError.serverUnavailable {
-                print("NetworkConstants.RequestError.serverUnavailable")
-            } catch NetworkConstants.RequestError.unknownError {
-                print("NetworkConstants.RequestError.unknownError")
-            } catch NetworkConstants.RequestError.jsonDecodeFailed {
-                print("NetworkConstants.RequestError.jsonDecodeFailed")
-            }
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setupNavigationBarStyle(backgroundColor: .systemMint)
     }
 
-    private func generateRegistrationOptions() {
-        let request = GenerateRegistrationOptionsRequest()
-        
-        Task {
-            do {
-                let results: GenerateRegistrationOptionsResponse = try await NetworkManager.shared.requestData(httpMethod: .get, path: .generateRegistrationOptions, parameters: request)
-                print(results)
-            } catch NetworkConstants.RequestError.invalidRequest {
-                print("NetworkConstants.RequestError.invalidRequest")
-            } catch NetworkConstants.RequestError.authorizationError {
-                print("NetworkConstants.RequestError.authorizationError")
-            } catch NetworkConstants.RequestError.notFound {
-                print("NetworkConstants.RequestError.notFound")
-            } catch NetworkConstants.RequestError.internalError {
-                print("NetworkConstants.RequestError.internalError")
-            } catch NetworkConstants.RequestError.serverError {
-                print("NetworkConstants.RequestError.serverError")
-            } catch NetworkConstants.RequestError.serverUnavailable {
-                print("NetworkConstants.RequestError.serverUnavailable")
-            } catch NetworkConstants.RequestError.unknownError {
-                print("NetworkConstants.RequestError.unknownError")
-            } catch NetworkConstants.RequestError.jsonDecodeFailed {
-                print("NetworkConstants.RequestError.jsonDecodeFailed")
-            }
-        }
+    @IBAction func loginSDKRegisterBtnClicked(_ sender: UIButton) {
+        let nextVC = LoginSDKRegisterViewController()
+        pushViewController(nextVC)
     }
     
-    private func verifyRegistrationResponse() {
-        
+    @IBAction func loginSDKAuthenticationBtnClicked(_ sender: UIButton) {
+        let nextVC = LoginSDKAuthenticationViewController()
+        pushViewController(nextVC)
     }
     
-    private func generateAuthenticationOptions() {
-        
+    @IBAction func webAuthnKitRegisterBtnClicked(_ sender: UIButton) {
+        let nextVC = WebAuthnKitRegisterViewController()
+        pushViewController(nextVC)
     }
     
-    private func verifyAuthenticationResponse() {
-        
+    @IBAction func webAuthnKitAuthenticationBtnClicked(_ sender: UIButton) {
+        let nextVC = WebAuthnKitAuthenticationViewController()
+        pushViewController(nextVC)
     }
     
+    @IBAction func asRegisterBtnClicked(_ sender: UIButton) {
+        let nextVC = RegisterViewController()
+        pushViewController(nextVC)
+    }
+    
+    @IBAction func asAuthenticationBtnClicked(_ sender: UIButton) {
+        let nextVC = AuthenticationViewController()
+        pushViewController(nextVC)
+    }
 }
