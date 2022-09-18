@@ -7,6 +7,7 @@
 
 import UIKit
 import WebAuthnKit
+import PromiseKit
 
 class WebAuthnKitAuthenticationViewController: BaseViewController {
 
@@ -16,7 +17,7 @@ class WebAuthnKitAuthenticationViewController: BaseViewController {
     /// WebAuthnKit
     let webAuthnManager = WebAuthnManager()
     var webAuthnClient: WebAuthnClient?
-    var publicKeyCredentialCreationOptions = PublicKeyCredentialCreationOptions()
+    var publicKeyCredentialRequestOptions = PublicKeyCredentialRequestOptions()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,20 +25,56 @@ class WebAuthnKitAuthenticationViewController: BaseViewController {
         
         setupNavigationBarStyle(backgroundColor: .systemCyan)
         authenticationButton.setButtonTitle(title: "Authentication")
+        
+        webAuthnClient = webAuthnManager.configure(vc: self, origin: "https://zero-trust-test.nutc-imac.com")
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
     
-    func configureWebAuthn() {
-        let userConsentUI = UserConsentUI(viewController: self)
-        let authenticator = InternalAuthenticator(ui: userConsentUI)
-        self.webAuthnClient = webAuthnManager.createWebAuthnClient(origin: "https://zero-trust-test.nutc-imac.com/", authenticator: authenticator)
-    }
-    
     @IBAction func authenticationBtnClicked(_ sender: UIButton) {
         
+        let rpId = UserPreferences.shared.relyPartyId
+        
+        let challenge = UserPreferences.shared.challenge
+        
+        let credentialId = UserPreferences.shared.credentialId
+        
+        let transports: [AuthenticatorTransport] = [.internal_]
+        
+        let userVerification: UserVerificationRequirement = .required
+        
+        let timeout: UInt64 = 120
+        
+        publicKeyCredentialRequestOptions = webAuthnManager.getPublicKeyCredentialOptions(rpId: rpId,
+                                                                                          challenge: challenge,
+                                                                                          credentialId: credentialId,
+                                                                                          transports: transports,
+                                                                                          userVerification: userVerification,
+                                                                                          timeout: timeout)
+        print(publicKeyCredentialRequestOptions)
+        
+        print("rpId", UserPreferences.shared.relyPartyId)
+        print("credentialId", UserPreferences.shared.credentialId)
+        print("challenge", UserPreferences.shared.challenge)
+        
+        firstly {
+            self.webAuthnClient!.get(self.publicKeyCredentialRequestOptions)
+        }.done { assertion in
+            #if DEBUG
+            print("==========================================")
+            print("credentialId: " + assertion.id)
+            print("rawId: " + Base64.encodeBase64URL(assertion.rawId))
+            print("authenticatorData: " + Base64.encodeBase64URL(assertion.response.authenticatorData))
+            print("signature: " + Base64.encodeBase64URL(assertion.response.signature))
+            print("userHandle: " + Base64.encodeBase64URL(assertion.response.userHandle!))
+            print("clientDataJSON: " + Base64.encodeBase64URL(assertion.response.clientDataJSON.data(using: .utf8)!))
+            print("==========================================")
+            #endif
+        }.catch { error in
+            print(error as? WAKError)
+        }
     }
 }
 

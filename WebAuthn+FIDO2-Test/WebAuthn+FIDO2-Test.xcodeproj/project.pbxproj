@@ -37,6 +37,7 @@
 		D05D7B6328D1BC4C00769585 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D7B6228D1BC4C00769585 /* NetworkManager.swift */; };
 		D05D7B6528D1BD8A00769585 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D7B6428D1BD8A00769585 /* NetworkConstants.swift */; };
 		D05D7B6728D1C04C00769585 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D7B6628D1C04C00769585 /* Extension.swift */; };
+		D0D2A5E328D75D9E0010C791 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D2A5E228D75D9E0010C791 /* UserPreferences.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -75,6 +76,7 @@
 		D05D7B6228D1BC4C00769585 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		D05D7B6428D1BD8A00769585 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 		D05D7B6628D1C04C00769585 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		D0D2A5E228D75D9E0010C791 /* UserPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -198,10 +200,11 @@
 		D05D7B5428D19C2A00769585 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D05D7B6628D1C04C00769585 /* Extension.swift */,
+				D0D2A5E228D75D9E0010C791 /* UserPreferences.swift */,
 				D00206B128D42A0B00B742E3 /* Manager */,
 				D05D7B5C28D1AB3800769585 /* API */,
 				D05D7B6128D1BC1E00769585 /* Network */,
-				D05D7B6628D1C04C00769585 /* Extension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -361,6 +364,7 @@
 				D00206B328D42A2300B742E3 /* WebAuthnManager.swift in Sources */,
 				D05D7B5028D19C0000769585 /* MainViewController.swift in Sources */,
 				D05D7B6528D1BD8A00769585 /* NetworkConstants.swift in Sources */,
+				D0D2A5E328D75D9E0010C791 /* UserPreferences.swift in Sources */,
 				D05D7B5B28D1AB1800769585 /* Username.swift in Sources */,
 				D00206C928D6E9DE00B742E3 /* WebAuthnKitAuthenticationViewController.swift in Sources */,
 				D00206CD28D6EA1200B742E3 /* LoginSDKRegisterViewController.swift in Sources */,

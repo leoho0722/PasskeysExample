@@ -5,18 +5,20 @@
 //  Created by Leo Ho on 2022/9/16.
 //
 
-import Foundation
+import UIKit
 import WebAuthnKit
 
 class WebAuthnManager: NSObject {
     
-    func createWebAuthnClient(origin: String, authenticator: Authenticator) -> WebAuthnClient {
-        var webAuthnClient = WebAuthnClient(origin: origin,
-                                            authenticator: authenticator)
-        return webAuthnClient
+    func configure(vc: UIViewController, origin: String) -> WebAuthnClient {
+        let userConsentUI = UserConsentUI(viewController: vc)
+        userConsentUI.config.alwaysShowKeySelection = false
+        userConsentUI.config.showRPInformation = false
+        let authenticator = InternalAuthenticator(ui: userConsentUI)
+        return WebAuthnClient(origin: origin, authenticator: authenticator)
     }
     
-    func createPublicKeyCredentialOptions(rpEntity: PublicKeyCredentialRpEntity,
+    func createPublicKeyCredentialOptions(rpEntity: (id: String, name: String),
                                           userEntity: (id: String, name: String, displayName: String),
                                           challenge: String,
                                           timeout: UInt64,
@@ -25,7 +27,7 @@ class WebAuthnManager: NSObject {
                                           attestation: AttestationConveyancePreference) -> PublicKeyCredentialCreationOptions {
         var options = PublicKeyCredentialCreationOptions()
         
-        options.challenge = Bytes.fromHex(challenge)
+        options.challenge = Bytes.fromString(challenge)
         
         options.user.id = Bytes.fromString(userEntity.id)
         options.user.name = userEntity.name
@@ -47,5 +49,24 @@ class WebAuthnManager: NSObject {
         return options
     }
     
+    func getPublicKeyCredentialOptions(rpId: String,
+                                       challenge: String,
+                                       credentialId: String,
+                                       transports: [AuthenticatorTransport],
+                                       userVerification: UserVerificationRequirement, timeout: UInt64) -> PublicKeyCredentialRequestOptions {
+        var options = PublicKeyCredentialRequestOptions()
+        
+        options.challenge = Bytes.fromString(challenge)
+        
+        options.rpId = rpId
+        
+        options.addAllowCredential(credentialId: Bytes.fromString(credentialId), transports: transports)
+        
+        options.userVerification = userVerification
+        
+        options.timeout = timeout
+        
+        return options
+    }
     
 }
