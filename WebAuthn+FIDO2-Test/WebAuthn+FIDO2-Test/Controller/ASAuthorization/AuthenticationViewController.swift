@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AuthenticationServices
 
 class AuthenticationViewController: BaseViewController {
     
@@ -21,6 +22,8 @@ class AuthenticationViewController: BaseViewController {
         
         setupNavigationBarStyle(backgroundColor: .systemGreen)
         authenticationButton.setButtonTitle(title: "Authentication")
+        
+        authenticationManager.delegate = self
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -29,5 +32,35 @@ class AuthenticationViewController: BaseViewController {
     
     @IBAction func authenticationBtnClicked(_ sender: UIButton) {
         
+    }
+}
+
+extension AuthenticationViewController: AuthenticationManagerDelegate {
+    
+    func signInWithPassKeys(with credentialAssertion: ASAuthorizationPlatformPublicKeyCredentialAssertion) {
+        
+        let signature = credentialAssertion.signature
+        let clientDataJSON = credentialAssertion.rawClientDataJSON
+        let userID = credentialAssertion.userID
+        
+        #if DEBUG
+        print("==============================")
+        print("Authentication-signature：", signature)
+        print("Authentication-signature to String：", String(data: signature!, encoding: .utf8))
+        print("Authentication-clientDataJSON：", clientDataJSON)
+        print("Authentication-clientDataJSON to String：", String(data: clientDataJSON, encoding: .utf8))
+        print("Authentication-userID：", userID)
+        print("Authentication-userID to String：", String(data: userID!, encoding: .utf8))
+        print("==============================")
+        #endif
+    }
+    
+    func signInWithPassword(userName: String, password: String) {
+        #if DEBUG
+        print("==============================")
+        print("Authentication-userName：", userName)
+        print("Authentication-password：", password)
+        print("==============================")
+        #endif
     }
 }

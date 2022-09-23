@@ -23,9 +23,9 @@ struct VerifyRegistrationRequest: Codable {
     
     struct Response: Codable {
         
-        var attestationObject: String
+        var attestationObject: Data
         
-        var clientDataJSON: String
+        var clientDataJSON: Data
     }
     
     struct ClientExtensionResults: Codable {

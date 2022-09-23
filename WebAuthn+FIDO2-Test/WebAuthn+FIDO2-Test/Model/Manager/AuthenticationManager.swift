@@ -8,6 +8,7 @@
 import Foundation
 import AuthenticationServices
 import os
+import WebAuthnKit
 
 class AuthenticationManager: NSObject {
     
@@ -17,9 +18,11 @@ class AuthenticationManager: NSObject {
     
     var isPerformingModalRequest: Bool = false
     
+    var delegate: AuthenticationManagerDelegate?
+    
     // MARK: PassKeys signUp
     
-    func signUpWith(userName: String, anchor: ASPresentationAnchor) {
+    func signUpWith(userName: String, challenge: String, anchor: ASPresentationAnchor) {
         
         self.authenticationAnchor = anchor
         
@@ -27,7 +30,7 @@ class AuthenticationManager: NSObject {
 
         // Fetch the challenge from the server. The challenge needs to be unique for each request.
         // The userID is the identifier for the user's account.
-        let challenge = Data()
+        let challenge = Data(challenge.utf8)
         let userID = Data(UUID().uuidString.utf8)
 
         let registrationRequest = publicKeyCredentialProvider.createCredentialRegistrationRequest(challenge: challenge, name: userName, userID: userID)
@@ -43,14 +46,14 @@ class AuthenticationManager: NSObject {
     
     // MARK: PassKeys signIn
     
-    func signInWith(anchor: ASPresentationAnchor, preferImmediatelyAvailableCredentials: Bool) {
+    func signInWith(challenge: String, anchor: ASPresentationAnchor, preferImmediatelyAvailableCredentials: Bool) {
         
         self.authenticationAnchor = anchor
         
         let publicKeyCredentialProvider = ASAuthorizationPlatformPublicKeyCredentialProvider(relyingPartyIdentifier: domain)
 
         // Fetch the challenge from the server. The challenge needs to be unique for each request.
-        let challenge = Data()
+        let challenge = Data(challenge.utf8)
 
         let assertionRequest = publicKeyCredentialProvider.createCredentialAssertionRequest(challenge: challenge)
 
@@ -81,14 +84,14 @@ class AuthenticationManager: NSObject {
     
     // MARK: PassKeys signIn with AutoFill
     
-    func beginAutoFillAssistedPasskeySignIn(anchor: ASPresentationAnchor) {
+    func beginAutoFillAssistedPasskeySignIn(challenge: String, anchor: ASPresentationAnchor) {
         
         self.authenticationAnchor = anchor
 
         let publicKeyCredentialProvider = ASAuthorizationPlatformPublicKeyCredentialProvider(relyingPartyIdentifier: domain)
 
         // Fetch the challenge from the server. The challenge needs to be unique for each request.
-        let challenge = Data()
+        let challenge = Data(challenge.utf8)
         let assertionRequest = publicKeyCredentialProvider.createCredentialAssertionRequest(challenge: challenge)
 
         // AutoFill-assisted requests only support ASAuthorizationPlatformPublicKeyCredentialAssertionRequest.
@@ -108,24 +111,31 @@ extension AuthenticationManager: ASAuthorizationControllerDelegate {
             logger.log("A new passkey was registered: \(credentialRegistration)")
             // Verify the attestationObject and clientDataJSON with your service.
             // The attestationObject contains the user's new public key to store and use for subsequent sign-ins.
-             let attestationObject = credentialRegistration.rawAttestationObject
-             let clientDataJSON = credentialRegistration.rawClientDataJSON
-
+            
+//            let attestationObject = credentialRegistration.rawAttestationObject
+//            let clientDataJSON = credentialRegistration.rawClientDataJSON
+//            let credentialID = credentialRegistration.credentialID
+            
+            delegate?.signUpWithPassKeys?(with: credentialRegistration)
             // After the server verifies the registration and creates the user account, sign in the user with the new account.
         case let credentialAssertion as ASAuthorizationPlatformPublicKeyCredentialAssertion:
             logger.log("A passkey was used to sign in: \(credentialAssertion)")
             // Verify the below signature and clientDataJSON with your service for the given userID.
-             let signature = credentialAssertion.signature
-             let clientDataJSON = credentialAssertion.rawClientDataJSON
-             let userID = credentialAssertion.userID
-
+            
+//             let signature = credentialAssertion.signature
+//             let clientDataJSON = credentialAssertion.rawClientDataJSON
+//             let userID = credentialAssertion.userID
+            
+            delegate?.signInWithPassKeys?(with: credentialAssertion)
             // After the server verifies the assertion, sign in the user.
         case let passwordCredential as ASPasswordCredential:
             logger.log("A password was provided: \(passwordCredential)")
             // Verify the userName and password with your service.
+            
              let userName = passwordCredential.user
              let password = passwordCredential.password
 
+            delegate?.signInWithPassword?(userName: userName, password: password)
             // After the server verifies the userName and password, sign in the user.
         default:
             fatalError("Received unknown authorization type.")
@@ -165,4 +175,13 @@ extension AuthenticationManager: ASAuthorizationControllerPresentationContextPro
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return authenticationAnchor!
     }
+}
+
+@objc protocol AuthenticationManagerDelegate: NSObjectProtocol {
+    
+    @objc optional func signUpWithPassKeys(with credentialRegistratio: ASAuthorizationPlatformPublicKeyCredentialRegistration)
+    
+    @objc optional func signInWithPassKeys(with credentialAssertion: ASAuthorizationPlatformPublicKeyCredentialAssertion)
+    
+    @objc optional func signInWithPassword(userName: String, password: String)
 }

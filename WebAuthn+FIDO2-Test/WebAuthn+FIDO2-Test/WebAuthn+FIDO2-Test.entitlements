@@ -4,8 +4,7 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>webcredentials:zero-trust-test.nutc-imac.com/</string>
-		<string>webcredentials:webauthn.io/</string>
+		<string>webcredentials:zero-trust-test.nutc-imac.com?mode=developer</string>
 	</array>
 </dict>
 </plist>
