@@ -179,7 +179,7 @@ extension AuthenticationManager: ASAuthorizationControllerPresentationContextPro
 
 @objc protocol AuthenticationManagerDelegate: NSObjectProtocol {
     
-    @objc optional func signUpWithPassKeys(with credentialRegistratio: ASAuthorizationPlatformPublicKeyCredentialRegistration)
+    @objc optional func signUpWithPassKeys(with credentialRegistration: ASAuthorizationPlatformPublicKeyCredentialRegistration)
     
     @objc optional func signInWithPassKeys(with credentialAssertion: ASAuthorizationPlatformPublicKeyCredentialAssertion)
     

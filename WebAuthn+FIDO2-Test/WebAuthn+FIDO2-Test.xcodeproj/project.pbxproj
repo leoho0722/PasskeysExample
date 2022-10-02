@@ -27,6 +27,11 @@
 		D05D7B6528D1BD8A00769585 /* NetworkConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D7B6428D1BD8A00769585 /* NetworkConstants.swift */; };
 		D05D7B6728D1C04C00769585 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D7B6628D1C04C00769585 /* Extension.swift */; };
 		D0D2A5E328D75D9E0010C791 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D2A5E228D75D9E0010C791 /* UserPreferences.swift */; };
+		D0D2A5EA28E177680010C791 /* GenerateAuthenticationOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D2A5E928E177680010C791 /* GenerateAuthenticationOptions.swift */; };
+		D0D2A5EC28E177810010C791 /* VerifyAuthenticationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D2A5EB28E177810010C791 /* VerifyAuthenticationResponse.swift */; };
+		D0D2A5EF28E17AC00010C791 /* ASAuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D2A5ED28E17AC00010C791 /* ASAuthorizationViewController.swift */; };
+		D0D2A5F028E17AC00010C791 /* ASAuthorizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0D2A5EE28E17AC00010C791 /* ASAuthorizationViewController.xib */; };
+		D0D2A5F228E19F3C0010C791 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D2A5F128E19F3C0010C791 /* Alert.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +60,11 @@
 		D05D7B6428D1BD8A00769585 /* NetworkConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkConstants.swift; sourceTree = "<group>"; };
 		D05D7B6628D1C04C00769585 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		D0D2A5E228D75D9E0010C791 /* UserPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
+		D0D2A5E928E177680010C791 /* GenerateAuthenticationOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateAuthenticationOptions.swift; sourceTree = "<group>"; };
+		D0D2A5EB28E177810010C791 /* VerifyAuthenticationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyAuthenticationResponse.swift; sourceTree = "<group>"; };
+		D0D2A5ED28E17AC00010C791 /* ASAuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAuthorizationViewController.swift; sourceTree = "<group>"; };
+		D0D2A5EE28E17AC00010C791 /* ASAuthorizationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ASAuthorizationViewController.xib; sourceTree = "<group>"; };
+		D0D2A5F128E19F3C0010C791 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +102,8 @@
 				D00206BE28D4766A00B742E3 /* RegisterViewController.xib */,
 				D00206B828D4755B00B742E3 /* AuthenticationViewController.swift */,
 				D00206B928D4755B00B742E3 /* AuthenticationViewController.xib */,
+				D0D2A5ED28E17AC00010C791 /* ASAuthorizationViewController.swift */,
+				D0D2A5EE28E17AC00010C791 /* ASAuthorizationViewController.xib */,
 			);
 			path = ASAuthorization;
 			sourceTree = "<group>";
@@ -156,6 +168,7 @@
 				D00206B128D42A0B00B742E3 /* Manager */,
 				D05D7B5C28D1AB3800769585 /* API */,
 				D05D7B6128D1BC1E00769585 /* Network */,
+				D0D2A5F128E19F3C0010C791 /* Alert.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -166,6 +179,8 @@
 				D05D7B5A28D1AB1800769585 /* Username.swift */,
 				D05D7B5D28D1AB9800769585 /* GenerateRegistrationOptions.swift */,
 				D05D7B5F28D1B60200769585 /* VerifyRegistrationResponse.swift */,
+				D0D2A5E928E177680010C791 /* GenerateAuthenticationOptions.swift */,
+				D0D2A5EB28E177810010C791 /* VerifyAuthenticationResponse.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -252,6 +267,7 @@
 				D05D7B4728D19B6500769585 /* LaunchScreen.storyboard in Resources */,
 				D05D7B5128D19C0000769585 /* MainViewController.xib in Resources */,
 				D05D7B4428D19B6500769585 /* Assets.xcassets in Resources */,
+				D0D2A5F028E17AC00010C791 /* ASAuthorizationViewController.xib in Resources */,
 				D00206C028D4766A00B742E3 /* RegisterViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -305,10 +321,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0D2A5F228E19F3C0010C791 /* Alert.swift in Sources */,
 				D05D7B6328D1BC4C00769585 /* NetworkManager.swift in Sources */,
+				D0D2A5EA28E177680010C791 /* GenerateAuthenticationOptions.swift in Sources */,
 				D05D7B5028D19C0000769585 /* MainViewController.swift in Sources */,
 				D05D7B6528D1BD8A00769585 /* NetworkConstants.swift in Sources */,
 				D0D2A5E328D75D9E0010C791 /* UserPreferences.swift in Sources */,
+				D0D2A5EC28E177810010C791 /* VerifyAuthenticationResponse.swift in Sources */,
 				D05D7B5B28D1AB1800769585 /* Username.swift in Sources */,
 				D05D7B6728D1C04C00769585 /* Extension.swift in Sources */,
 				D00206BF28D4766A00B742E3 /* RegisterViewController.swift in Sources */,
@@ -316,6 +335,7 @@
 				D00206BA28D4755B00B742E3 /* AuthenticationViewController.swift in Sources */,
 				D05D7B5628D19D2200769585 /* BaseViewController.swift in Sources */,
 				D05D7B6028D1B60200769585 /* VerifyRegistrationResponse.swift in Sources */,
+				D0D2A5EF28E17AC00010C791 /* ASAuthorizationViewController.swift in Sources */,
 				D05D7B3B28D19B6400769585 /* AppDelegate.swift in Sources */,
 				D00206AE28D308DC00B742E3 /* AuthenticationManager.swift in Sources */,
 				D05D7B3D28D19B6400769585 /* SceneDelegate.swift in Sources */,
