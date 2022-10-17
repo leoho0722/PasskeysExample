@@ -37,7 +37,7 @@ class NetworkManager: NSObject {
                 throw NetworkConstants.RequestError.unknownError
             }
         }
-//        print(String(data: data, encoding: .utf8))
+
         let jsonDecoder = JSONDecoder()
         guard let results = try? jsonDecoder.decode(D.self, from: data) else {
             throw NetworkConstants.RequestError.jsonDecodeFailed
@@ -57,7 +57,9 @@ class NetworkManager: NSObject {
         let url = URL(string: baseURL + path.rawValue)!
         var urlRequest = URLRequest(url: url, cachePolicy: .useProtocolCachePolicy, timeoutInterval: 10)
         let httpType = NetworkConstants.ContentType.json.rawValue
-        urlRequest.allHTTPHeaderFields = [NetworkConstants.HttpHeaderField.contentType.rawValue : httpType]
+        urlRequest.allHTTPHeaderFields = [
+            NetworkConstants.HttpHeaderField.contentType.rawValue : httpType
+        ]
         urlRequest.httpMethod = method.rawValue
         
         let dict1 = try? parameters.asDictionary()
@@ -65,7 +67,8 @@ class NetworkManager: NSObject {
         switch method {
         case .get:
             let parameters = dict1 as? [String : String]
-            urlRequest.url = requestWithURL(urlString: urlRequest.url?.absoluteString ?? "", parameters: parameters ?? [:])
+            urlRequest.url = requestWithURL(urlString: urlRequest.url?.absoluteString ?? "",
+                                            parameters: parameters ?? [:])
         default:
             urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: dict1 ?? [:], options: .prettyPrinted)
         }
@@ -82,7 +85,9 @@ class NetworkManager: NSObject {
         return urlComponents.url
     }
     
-    private func printNeworkProgress<E: Encodable, D: Decodable>(_ urlRequest: URLRequest, _ parameters: E, _ results: D) {
+    private func printNeworkProgress<E: Encodable, D: Decodable>(_ urlRequest: URLRequest,
+                                                                 _ parameters: E,
+                                                                 _ results: D) {
         #if DEBUG
         print("=======================================")
         print("- URL: \(urlRequest.url?.absoluteString ?? "")")
@@ -94,5 +99,4 @@ class NetworkManager: NSObject {
         print("=======================================")
         #endif
     }
-    
 }

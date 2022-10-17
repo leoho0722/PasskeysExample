@@ -15,9 +15,7 @@ class AuthenticationManager: NSObject {
     let domain = "zero-trust-test.nutc-imac.com"
     
     var authenticationAnchor: ASPresentationAnchor?
-    
-    var isPerformingModalRequest: Bool = false
-    
+        
     var delegate: AuthenticationManagerDelegate?
     
     // MARK: PassKeys signUp
@@ -33,7 +31,9 @@ class AuthenticationManager: NSObject {
         let challenge = Data(challenge.utf8)
         let userID = Data(UUID().uuidString.utf8)
 
-        let registrationRequest = publicKeyCredentialProvider.createCredentialRegistrationRequest(challenge: challenge, name: userName, userID: userID)
+        let registrationRequest = publicKeyCredentialProvider.createCredentialRegistrationRequest(challenge: challenge,
+                                                                                                  name: userName,
+                                                                                                  userID: userID)
 
         // Use only ASAuthorizationPlatformPublicKeyCredentialRegistrationRequests or
         // ASAuthorizationSecurityKeyPublicKeyCredentialRegistrationRequests here.
@@ -41,7 +41,6 @@ class AuthenticationManager: NSObject {
         authController.delegate = self
         authController.presentationContextProvider = self
         authController.performRequests()
-        isPerformingModalRequest = true
     }
     
     // MARK: PassKeys signIn
@@ -53,7 +52,7 @@ class AuthenticationManager: NSObject {
         let publicKeyCredentialProvider = ASAuthorizationPlatformPublicKeyCredentialProvider(relyingPartyIdentifier: domain)
 
         // Fetch the challenge from the server. The challenge needs to be unique for each request.
-        let challenge = Data(challenge.utf8)
+        let challenge = challenge.data(using: .utf8)!
 
         let assertionRequest = publicKeyCredentialProvider.createCredentialAssertionRequest(challenge: challenge)
 
@@ -78,8 +77,6 @@ class AuthenticationManager: NSObject {
             // passkey from a nearby device.
             authController.performRequests()
         }
-
-        isPerformingModalRequest = true
     }
     
     // MARK: PassKeys signIn with AutoFill
@@ -104,7 +101,8 @@ class AuthenticationManager: NSObject {
 
 extension AuthenticationManager: ASAuthorizationControllerDelegate {
     
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+    func authorizationController(controller: ASAuthorizationController,
+                                 didCompleteWithAuthorization authorization: ASAuthorization) {
         let logger = Logger()
         switch authorization.credential {
         case let credentialRegistration as ASAuthorizationPlatformPublicKeyCredentialRegistration:
@@ -140,14 +138,12 @@ extension AuthenticationManager: ASAuthorizationControllerDelegate {
         default:
             fatalError("Received unknown authorization type.")
         }
-
-        isPerformingModalRequest = false
     }
     
-    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+    func authorizationController(controller: ASAuthorizationController,
+                                 didCompleteWithError error: Error) {
         let logger = Logger()
         guard let authorizationError = error as? ASAuthorizationError else {
-            isPerformingModalRequest = false
             logger.error("Unexpected authorization error: \(error.localizedDescription)")
             return
         }
@@ -156,17 +152,11 @@ extension AuthenticationManager: ASAuthorizationControllerDelegate {
             // Either the system doesn't find any credentials and the request ends silently, or the user cancels the request.
             // This is a good time to show a traditional login form, or ask the user to create an account.
             logger.log("Request canceled.")
-
-            if isPerformingModalRequest {
-//                didCancelModalSheet()
-            }
         } else {
             // Another ASAuthorization error.
             // Note: The userInfo dictionary contains useful information.
             logger.error("Error: \((error as NSError).userInfo)")
         }
-
-        isPerformingModalRequest = false
     }
 }
 

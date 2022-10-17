@@ -1,6 +1,6 @@
 //
 //  UserPreferences.swift
-//  CmoreKeyDemo
+//  WebAuthn+FIDO2-Test
 //
 //  Created by Leo Ho on 2022/6/24.
 //

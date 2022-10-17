@@ -9,7 +9,11 @@ import UIKit
 
 class Alert {
     
-    static func showAlertWith(title: String?, message: String?, confirmTitle: String, vc: UIViewController, confirm: (() -> Void)?) {
+    static func showAlertWith(title: String?,
+                              message: String?,
+                              confirmTitle: String,
+                              vc: UIViewController,
+                              confirm: (() -> Void)?) {
         DispatchQueue.main.async {
             let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
             let confirmAction = UIAlertAction(title: confirmTitle, style: .default) { action in
@@ -19,5 +23,4 @@ class Alert {
             vc.present(alertController, animated: true)
         }
     }
-    
 }

@@ -41,12 +41,12 @@ struct NetworkConstants {
         case connectionError
         case invalidResponse
         case jsonDecodeFailed
-        case invalidRequest // 400
-        case authorizationError // 401
-        case notFound // 404
-        case internalError // 500
-        case serverError // 502
-        case serverUnavailable // 503
+        case invalidRequest     // statusCode 400
+        case authorizationError // statusCode 401
+        case notFound           // statusCode 404
+        case internalError      // statusCode 500
+        case serverError        // statusCode 502
+        case serverUnavailable  // statusCode 503
     }
     
     enum APIPathConstants: String {
@@ -55,13 +55,13 @@ struct NetworkConstants {
         
         case username = "/username"
         
-        // MARK: Register
+        // MARK: Registration
 
         case generateRegistrationOptions = "/generate-registration-options"
         
         case verifyRegistrationResponse = "/verify-registration-response"
         
-        // MARK: Verify
+        // MARK: Authentication
         
         case generateAuthenticationOptions = "/generate-authentication-options"
         

@@ -2,30 +2,41 @@ import UIKit
 
 class BaseViewController: UIViewController {
     
-    // MARK: NavigationBar Style
+    // MARK: - typealias
+    
+    typealias ModelPresentationStyle = UIModalPresentationStyle
+    typealias ModalTransitionStyle = UIModalTransitionStyle
+    
+    // MARK: - UINavigationBar Style
     
     /// 設定 NavigationBar 的顏色
     /// - Parameters:
     ///   - backgroundColor: navigationBar 的背景色
     ///   - tintColor: navigationBar 的色調顏色，預設為 UIColor.white
     ///   - foregroundColor: navigationBar 上的文字顏色，預設為 UIColor.white
-    public func setupNavigationBarStyle(backgroundColor: UIColor?, tintColor: UIColor? = .white, foregroundColor: UIColor? = .white) {
+    public func setupNavigationBarStyle(backgroundColor: UIColor?,
+                                        tintColor: UIColor? = .white,
+                                        foregroundColor: UIColor? = .white) {
         if #available(iOS 15.0, *) {
             let appearance = UINavigationBarAppearance()
             appearance.configureWithOpaqueBackground()
             appearance.backgroundColor = backgroundColor
             self.navigationController?.navigationBar.tintColor = tintColor
-            appearance.titleTextAttributes = [NSAttributedString.Key.foregroundColor: foregroundColor ?? .white]
+            appearance.titleTextAttributes = [
+                NSAttributedString.Key.foregroundColor : foregroundColor ?? .white
+            ]
             self.navigationController?.navigationBar.standardAppearance = appearance
             self.navigationController?.navigationBar.scrollEdgeAppearance = appearance
         } else {
             self.navigationController?.navigationBar.barTintColor = backgroundColor
             self.navigationController?.navigationBar.tintColor = tintColor
-            self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: foregroundColor ?? .white]
+            self.navigationController?.navigationBar.titleTextAttributes = [
+                NSAttributedString.Key.foregroundColor : foregroundColor ?? .white
+            ]
         }
     }
     
-    // MARK: - NavigationController.present
+    // MARK: - UINavigationController.present
     
     /// NavigationController.presentViewController 跳頁 (帶 Closure)
     /// - Parameters:
@@ -33,20 +44,35 @@ class BaseViewController: UIViewController {
     ///   - animated: 是否要換頁動畫，預設為 true
     ///   - isFullScreen: 是否全螢幕顯示，預設為 false
     ///   - completion: 換頁過程中，要做的事，預設為 nil
-    public func presentViewController(viewController: UIViewController, animated: Bool = true, isFullScreen: Bool = false, completion: (() -> Void)? = nil) {
+    public func presentViewController(viewController: UIViewController,
+                                      animated: Bool = true,
+                                      isFullScreen: Bool = false,
+                                      completion: (() -> Void)? = nil) {
         let navigationVC = UINavigationController(rootViewController: viewController)
         self.navigationController?.present(navigationVC, animated: animated, completion: completion)
     }
     
-    // MARK: - NavigationController.push
+    // MARK: - UINavigationController.push
     
     /// NavigationController.pushViewController 跳頁 (不帶 Closure)
     /// - Parameters:
     ///   - viewController: 要跳頁到的 UIViewController
     ///   - animated: 是否要換頁動畫，預設為 true
     public func pushViewController(_ viewController: UIViewController, animated: Bool = true) {
-        if let navigationController = UIApplication.shared.windows.first(where: { $0.isKeyWindow })?.rootViewController as? UINavigationController {
-            navigationController.pushViewController(viewController, animated: animated)
+        if #available(iOS 15.0, *) {
+            if let navigationController = UIApplication.shared
+                .connectedScenes
+                .compactMap({ $0 as? UIWindowScene })
+                .flatMap({ $0.windows })
+                .first(where: { $0.isKeyWindow })?.rootViewController as? UINavigationController {
+                navigationController.pushViewController(viewController, animated: animated)
+            }
+        } else {
+            if let navigationController = UIApplication.shared
+                .windows
+                .first(where: { $0.isKeyWindow })?.rootViewController as? UINavigationController {
+                navigationController.pushViewController(viewController, animated: animated)
+            }
         }
     }
     
@@ -55,7 +81,9 @@ class BaseViewController: UIViewController {
     ///   - viewController: 要跳頁到的 UIViewController
     ///   - animated: 是否要換頁動畫
     ///   - completion: 換頁過程中，要做的事
-    public func pushViewController(_ viewController: UIViewController, animated: Bool, completion: @escaping () -> Void) {
+    public func pushViewController(_ viewController: UIViewController,
+                                   animated: Bool,
+                                   completion: @escaping () -> Void) {
         self.navigationController?.pushViewController(viewController, animated: animated)
         guard animated, let coordinator = transitionCoordinator else {
             DispatchQueue.main.async { completion() }
@@ -64,7 +92,7 @@ class BaseViewController: UIViewController {
         coordinator.animate(alongsideTransition: nil) { _ in completion() }
     }
     
-    // MARK: - NavigationController.pop
+    // MARK: - UINavigationController.pop
     
     /// NavigationController.popViewController 回上一頁 (不帶 Closure)
     /// - Parameters:
@@ -91,7 +119,9 @@ class BaseViewController: UIViewController {
     ///   - currectVC: 目前所在的 ViewController
     ///   - popVC_index: 在 NavigationController.viewControllers 中，指定 ViewController 的 index
     ///   - animated: 是否要換頁動畫，預設為 true
-    public func popToViewController(currectVC viewController: UIViewController, popVC_index: Int, animated: Bool = true) {
+    public func popToViewController(currectVC viewController: UIViewController,
+                                    popVC_index: Int,
+                                    animated: Bool = true) {
         guard let currectVC_index = navigationController?.viewControllers.firstIndex(of: self) else { return }
         if let vc = navigationController?.viewControllers[currectVC_index - popVC_index] {
             self.navigationController?.popToViewController(vc, animated: animated)
@@ -104,7 +134,10 @@ class BaseViewController: UIViewController {
     ///   - popVC_index: 在 NavigationController.viewControllers 中，指定 ViewController 的 index
     ///   - animated: 是否要換頁動畫
     ///   - completion: 換頁過程中，要做的事
-    public func popToViewController(currectVC viewController: UIViewController, popVC_index: Int, animated: Bool, completion: @escaping () -> Void) {
+    public func popToViewController(currectVC viewController: UIViewController,
+                                    popVC_index: Int,
+                                    animated: Bool,
+                                    completion: @escaping () -> Void) {
         guard let currectVC_index = navigationController?.viewControllers.firstIndex(of: self) else { return }
         if let vc = navigationController?.viewControllers[currectVC_index - popVC_index] {
             self.navigationController?.popToViewController(vc, animated: animated)
@@ -123,7 +156,7 @@ class BaseViewController: UIViewController {
         self.navigationController?.popToRootViewController(animated: animated)
     }
     
-    // MARK: - NavigationController.dismiss
+    // MARK: - UINavigationController.dismiss
     
     /// NavigationController.dismiss (帶 Closure)
     /// - Parameters:
@@ -133,7 +166,7 @@ class BaseViewController: UIViewController {
         self.navigationController?.dismiss(animated: animated, completion: completion)
     }
     
-    // MARK: - ViewController.popUp
+    // MARK: - UIViewController.popUp
     
     /// ViewController.popUp (帶 Closure)
     /// - Parameters:
@@ -143,8 +176,8 @@ class BaseViewController: UIViewController {
     ///   - animated: 是否要彈出動畫，預設為 true
     ///   - completion: 彈出過程中，要做的事，預設為 nil
     public func popUpViewController(viewController: UIViewController,
-                                    modalPresentationStyle: UIModalPresentationStyle = .overFullScreen,
-                                    modalTransitionStyle: UIModalTransitionStyle = .coverVertical,
+                                    modalPresentationStyle: ModelPresentationStyle = .overFullScreen,
+                                    modalTransitionStyle: ModalTransitionStyle = .coverVertical,
                                     animated: Bool = true,
                                     completion: (()-> Void)? = nil) {
         viewController.modalPresentationStyle = modalPresentationStyle
@@ -160,7 +193,7 @@ class BaseViewController: UIViewController {
         self.dismiss(animated: animated, completion: completion)
     }
     
-    // MARK: - 建立 TabBarViewController
+    // MARK: - UITabBarViewController Create
     
     /// 建立主畫面底下的 UITabBarController
     /// - Parameters:
@@ -169,7 +202,10 @@ class BaseViewController: UIViewController {
     ///   - imageNameArray: 各頁面 icon 的圖片名稱陣列，UIImage(systemName: )
     ///   - modelPresentationStyle: 呈現樣式，預設為 UIModalPresentationStyle.fullScreen
     /// - Returns: 建立好的 UITabBarController
-    public func createThreeTabBarViewController(vcs: [UIViewController], vcTitleArray: [String], imageNameArray: [String], modelPresentationStyle: UIModalPresentationStyle = .fullScreen) -> UITabBarController {
+    public func createThreeTabBarViewController(vcs: [UIViewController],
+                                                vcTitleArray: [String],
+                                                imageNameArray: [String],
+                                                modelPresentationStyle: ModelPresentationStyle = .fullScreen) -> UITabBarController {
         let tabBarVC = UITabBarController()
         
         let navVC1 = UINavigationController(rootViewController: vcs[0])

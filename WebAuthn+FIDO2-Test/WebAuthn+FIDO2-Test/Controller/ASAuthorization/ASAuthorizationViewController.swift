@@ -40,7 +40,7 @@ class ASAuthorizationViewController: BaseViewController {
         view.endEditing(true)
     }
     
-    // MARK: - Setup UI
+    // MARK: - UI Settings
     
     func setupUI() {
         
@@ -87,12 +87,15 @@ class ASAuthorizationViewController: BaseViewController {
     
     @IBAction func opModeBtnClicked(_ sender: UIButton) {
         switch selectedIndex {
+        // MARK: - Registration
         case 0:
             let request = GenerateRegistrationOptionsRequest()
             
             Task {
                 do {
-                    let results: GenerateRegistrationOptionsResponse = try await NetworkManager.shared.requestData(httpMethod: .get, path: .generateRegistrationOptions, parameters: request)
+                    let results: GenerateRegistrationOptionsResponse = try await NetworkManager.shared.requestData(httpMethod: .get,
+                                                                                                                   path: .generateRegistrationOptions,
+                                                                                                                   parameters: request)
                     
                     challengeFromRegistration = results.challenge
                     
@@ -126,12 +129,15 @@ class ASAuthorizationViewController: BaseViewController {
                     print("NetworkConstants.RequestError.jsonDecodeFailed")
                 }
             }
+        // MARK: - Authentication
         case 1:
             let request = GenerateAuthenticationOptionsRequest()
             
             Task {
                 do {
-                    let results: GenerateAuthenticationOptionsResponse = try await NetworkManager.shared.requestData(httpMethod: .get, path: .generateAuthenticationOptions, parameters: request)
+                    let results: GenerateAuthenticationOptionsResponse = try await NetworkManager.shared.requestData(httpMethod: .get,
+                                                                                                                     path: .generateAuthenticationOptions,
+                                                                                                                     parameters: request)
                     
                     challengeFromAuthentication = results.challenge
                     
@@ -144,14 +150,14 @@ class ASAuthorizationViewController: BaseViewController {
                     #if DEBUG
                     print(results.challenge)
                     print(challengeFromAuthentication)
-                    print(results.allowCredentials)
-                    print(allowCredentials)
                     #endif
                     
                     guard let window = self.view.window else {
                         fatalError("The view was not in the app's view hierarchy!")
                     }
-                    authenticationManager.signInWith(challenge: results.challenge, anchor: window, preferImmediatelyAvailableCredentials: true)
+                    authenticationManager.signInWith(challenge: results.challenge,
+                                                     anchor: window,
+                                                     preferImmediatelyAvailableCredentials: true)
                 } catch NetworkConstants.RequestError.invalidRequest {
                     print("NetworkConstants.RequestError.invalidRequest")
                 } catch NetworkConstants.RequestError.authorizationError {
@@ -179,9 +185,7 @@ class ASAuthorizationViewController: BaseViewController {
 // MARK: - AuthenticationManagerDelegate
 
 extension ASAuthorizationViewController: AuthenticationManagerDelegate {
-    
-    // MARK: - Registration
-    
+
     func signUpWithPassKeys(with credentialRegistration: ASAuthorizationPlatformPublicKeyCredentialRegistration) {
         
         let attestationObject = credentialRegistration.rawAttestationObject
@@ -206,19 +210,30 @@ extension ASAuthorizationViewController: AuthenticationManagerDelegate {
         
         let request = VerifyRegistrationRequest(id: credentialID.base64urlEncodedString(),
                                                 rawId: credentialID.base64urlEncodedString(),
-                                                response: VerifyRegistrationRequest.Response(attestationObject: attestationObject!, clientDataJSON: clientData),
+                                                response: VerifyRegistrationRequest.Response(attestationObject: attestationObject!,
+                                                                                             clientDataJSON: clientData),
                                                 type: "public-key",
                                                 clientExtensionResults: VerifyRegistrationRequest.ClientExtensionResults(),
                                                 transports: ["internal"])
         
         Task {
             do {
-                let results: VerifyRegistrationResponse = try await NetworkManager.shared.requestData(httpMethod: .post, path: .verifyRegistrationResponse, parameters: request)
+                let results: VerifyRegistrationResponse = try await NetworkManager.shared.requestData(httpMethod: .post,
+                                                                                                      path: .verifyRegistrationResponse,
+                                                                                                      parameters: request)
                 print(results)
                 if results.verified {
-                    Alert.showAlertWith(title: "Registration Results", message: "username：\(results.username)", confirmTitle: "Close", vc: self, confirm: nil)
+                    Alert.showAlertWith(title: "Registration Results",
+                                        message: "username：\(results.username)",
+                                        confirmTitle: "Close",
+                                        vc: self,
+                                        confirm: nil)
                 } else {
-                    Alert.showAlertWith(title: "Registration Results", message: "msg：\(results.msg)\nstatus：\(results.status)", confirmTitle: "Close", vc: self, confirm: nil)
+                    Alert.showAlertWith(title: "Registration Results",
+                                        message: "msg：\(results.msg)\nstatus：\(results.status)",
+                                        confirmTitle: "Close",
+                                        vc: self,
+                                        confirm: nil)
                 }
             } catch NetworkConstants.RequestError.invalidRequest {
                 print("NetworkConstants.RequestError.invalidRequest")
@@ -239,38 +254,48 @@ extension ASAuthorizationViewController: AuthenticationManagerDelegate {
             }
         }
     }
-    
-    // MARK: - Authentication
-    
+
     func signInWithPassKeys(with credentialAssertion: ASAuthorizationPlatformPublicKeyCredentialAssertion) {
         
         let signature = credentialAssertion.signature
         let clientDataJSON = credentialAssertion.rawClientDataJSON
         let userID = credentialAssertion.userID
+        let authenticatorData = credentialAssertion.rawAuthenticatorData
         
         #if DEBUG
         print("==============================")
+        print("Authentication-assertion：", credentialAssertion)
         print("Authentication-signature：", signature)
+        print("Authentication-authenticatorData：", authenticatorData)
         print("Authentication-clientDataJSON：", clientDataJSON.base64EncodedString())
         print("Authentication-clientDataJSON：", clientDataJSON.base64EncodedString().base64Decoded()!)
-        print("Authentication-userID：", userID)
         print("==============================")
         #endif
         
         let request = VerifyAuthenticationRequest(challenge: challengeFromAuthentication,
                                                   allowCredentials: allowCredentials,
                                                   userVerification: "required",
-                                                  timeout: 60000,
-                                                  rpId: "zero-trust-test.nutc-imac.com")
+                                                  timeout: 1800000,
+                                                  rpId: authenticationManager.domain)
         
         Task {
             do {
-                let results: VerifyAuthenticationResponse = try await NetworkManager.shared.requestData(httpMethod: .post, path: .verifyAuthenticationResponse, parameters: request)
+                let results: VerifyAuthenticationResponse = try await NetworkManager.shared.requestData(httpMethod: .post,
+                                                                                                        path: .verifyAuthenticationResponse,
+                                                                                                        parameters: request)
                 print(results)
                 if results.verified {
-                    Alert.showAlertWith(title: "Authentication Results", message: "username：\(results.username)", confirmTitle: "Close", vc: self, confirm: nil)
+                    Alert.showAlertWith(title: "Authentication Results",
+                                        message: "username：\(results.username)",
+                                        confirmTitle: "Close",
+                                        vc: self,
+                                        confirm: nil)
                 } else {
-                    Alert.showAlertWith(title: "Authentication Results", message: "msg：\(results.msg)\nstatus：\(results.status)", confirmTitle: "Close", vc: self, confirm: nil)
+                    Alert.showAlertWith(title: "Authentication Results",
+                                        message: "msg：\(results.msg)\nstatus：\(results.status)",
+                                        confirmTitle: "Close",
+                                        vc: self,
+                                        confirm: nil)
                 }
             } catch NetworkConstants.RequestError.invalidRequest {
                 print("NetworkConstants.RequestError.invalidRequest")
