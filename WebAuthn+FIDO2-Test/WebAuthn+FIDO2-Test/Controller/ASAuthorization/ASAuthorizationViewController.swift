@@ -109,8 +109,13 @@ class ASAuthorizationViewController: BaseViewController {
                     guard let window = self.view.window else {
                         fatalError("The view was not in the app's view hierarchy!")
                     }
+                    
                     guard let username = usernameTextField.text else { return }
-                    authenticationManager.signUpWith(userName: username, challenge: results.challenge, anchor: window)
+                    
+                    authenticationManager.signUpWith(userName: username,
+                                                     challenge: results.challenge,
+                                                     anchor: window)
+                    
                 } catch NetworkConstants.RequestError.invalidRequest {
                     print("NetworkConstants.RequestError.invalidRequest")
                 } catch NetworkConstants.RequestError.authorizationError {
@@ -150,14 +155,18 @@ class ASAuthorizationViewController: BaseViewController {
                     #if DEBUG
                     print(results.challenge)
                     print(challengeFromAuthentication)
+                    print(results.challenge.base64URLEncodedToBase64)
+                    print(results.challenge.base64URLEncodedToBase64.base64Decoded()!)
                     #endif
                     
                     guard let window = self.view.window else {
                         fatalError("The view was not in the app's view hierarchy!")
                     }
+                    
                     authenticationManager.signInWith(challenge: results.challenge,
                                                      anchor: window,
                                                      preferImmediatelyAvailableCredentials: true)
+                    
                 } catch NetworkConstants.RequestError.invalidRequest {
                     print("NetworkConstants.RequestError.invalidRequest")
                 } catch NetworkConstants.RequestError.authorizationError {
@@ -264,19 +273,22 @@ extension ASAuthorizationViewController: AuthenticationManagerDelegate {
         
         #if DEBUG
         print("==============================")
-        print("Authentication-assertion：", credentialAssertion)
         print("Authentication-signature：", signature)
         print("Authentication-authenticatorData：", authenticatorData)
+        print("Authentication-clientDataJSON：", clientDataJSON)
         print("Authentication-clientDataJSON：", clientDataJSON.base64EncodedString())
         print("Authentication-clientDataJSON：", clientDataJSON.base64EncodedString().base64Decoded()!)
         print("==============================")
         #endif
         
-        let request = VerifyAuthenticationRequest(challenge: challengeFromAuthentication,
-                                                  allowCredentials: allowCredentials,
-                                                  userVerification: "required",
-                                                  timeout: 1800000,
-                                                  rpId: authenticationManager.domain)
+        let request = VerifyAuthenticationRequest(id: allowCredentials[0].id,
+                                                  rawId: allowCredentials[0].id,
+                                                  response: VerifyAuthenticationRequest.Response(authenticatorData: authenticatorData!,
+                                                                                                 clientDataJSON: clientDataJSON,
+                                                                                                 signature: signature!,
+                                                                                                 userHandle: userID!),
+                                                  type: "public-key",
+                                                  clientExtensionResults: VerifyAuthenticationRequest.ClientExtensionResults())
         
         Task {
             do {
