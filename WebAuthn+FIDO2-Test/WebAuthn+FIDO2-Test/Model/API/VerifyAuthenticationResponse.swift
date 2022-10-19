@@ -9,15 +9,30 @@ import Foundation
 
 struct VerifyAuthenticationRequest: Codable {
     
-    var challenge: String
+    var id: String
     
-    var allowCredentials: [AllowCredentials]
+    var rawId: String
     
-    var userVerification: String
+    var response: Response
     
-    var timeout: Int
+    var type: String
     
-    var rpId: String
+    var clientExtensionResults: ClientExtensionResults
+    
+    struct Response: Codable {
+        
+        var authenticatorData: Data
+        
+        var clientDataJSON: Data
+        
+        var signature: Data
+        
+        var userHandle: Data
+    }
+    
+    struct ClientExtensionResults: Codable {
+        
+    }
     
     struct AllowCredentials: Codable {
         
