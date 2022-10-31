@@ -50,7 +50,17 @@ struct VerifyAuthenticationResponse: Decodable {
     
     let msg: String?
     
-    let status: Int?
+    let status: String?
+    
+    let signCount: Int?
     
     let verified: Bool
+    
+    enum CodingKeys: String, CodingKey {
+        case username
+        case msg
+        case status
+        case signCount = "user_credential.sign_count"
+        case verified
+    }
 }

@@ -37,6 +37,10 @@ class NetworkManager: NSObject {
                 throw NetworkConstants.RequestError.unknownError
             }
         }
+        
+        #if DEBUG
+        print(String(data: data, encoding: .utf8))
+        #endif
 
         let jsonDecoder = JSONDecoder()
         guard let results = try? jsonDecoder.decode(D.self, from: data) else {

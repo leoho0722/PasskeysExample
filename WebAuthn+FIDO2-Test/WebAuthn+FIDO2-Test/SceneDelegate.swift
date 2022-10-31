@@ -21,7 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         /* 純用 Xib 設計畫面要加下面這幾行，來指定第一個畫面 */
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let rootVC = ASAuthorizationViewController()
+        let rootVC = PasskeysViewController()
         let navigationController = UINavigationController(rootViewController: rootVC)
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene

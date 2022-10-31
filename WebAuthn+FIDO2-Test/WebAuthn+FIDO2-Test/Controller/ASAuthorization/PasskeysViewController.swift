@@ -1,5 +1,5 @@
 //
-//  ASAuthorizationViewController.swift
+//  PasskeysViewController.swift
 //  WebAuthn+FIDO2-Test
 //
 //  Created by Leo Ho on 2022/9/26.
@@ -10,7 +10,7 @@ import AuthenticationServices
 import WebAuthnKit
 import LoginSDK
 
-class ASAuthorizationViewController: BaseViewController {
+class PasskeysViewController: BaseViewController {
     
     // MARK: - IBOutlet
     
@@ -20,10 +20,10 @@ class ASAuthorizationViewController: BaseViewController {
     
     // MARK: - Variables
     
-    var selectedIndex: Int = 0
+    var selectedIndex: Int = 0 // 判斷現在是 Registration 還是 Authentication
     
     /// PassKeys
-    let authenticationManager = AuthenticationManager()
+    let passkeysManager = PasskeysManager()
     var challengeFromRegistration: String = ""
     var challengeFromAuthentication: String = ""
     var allowCredentials: [VerifyAuthenticationRequest.AllowCredentials] = []
@@ -33,7 +33,7 @@ class ASAuthorizationViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        authenticationManager.delegate = self
+        passkeysManager.delegate = self
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -112,9 +112,9 @@ class ASAuthorizationViewController: BaseViewController {
                     
                     guard let username = usernameTextField.text else { return }
                     
-                    authenticationManager.signUpWith(userName: username,
-                                                     challenge: results.challenge,
-                                                     anchor: window)
+                    passkeysManager.signUpWith(userName: username,
+                                               challenge: results.challenge,
+                                               anchor: window)
                     
                 } catch NetworkConstants.RequestError.invalidRequest {
                     print("NetworkConstants.RequestError.invalidRequest")
@@ -163,9 +163,9 @@ class ASAuthorizationViewController: BaseViewController {
                         fatalError("The view was not in the app's view hierarchy!")
                     }
                     
-                    authenticationManager.signInWith(challenge: results.challenge,
-                                                     anchor: window,
-                                                     preferImmediatelyAvailableCredentials: true)
+                    passkeysManager.signInWith(challenge: results.challenge,
+                                               anchor: window,
+                                               preferImmediatelyAvailableCredentials: true)
                     
                 } catch NetworkConstants.RequestError.invalidRequest {
                     print("NetworkConstants.RequestError.invalidRequest")
@@ -191,9 +191,9 @@ class ASAuthorizationViewController: BaseViewController {
     }
 }
 
-// MARK: - AuthenticationManagerDelegate
+// MARK: - PasskeysManagerDelegate
 
-extension ASAuthorizationViewController: AuthenticationManagerDelegate {
+extension PasskeysViewController: PasskeysManagerDelegate {
 
     func signUpWithPassKeys(with credentialRegistration: ASAuthorizationPlatformPublicKeyCredentialRegistration) {
         
@@ -211,10 +211,14 @@ extension ASAuthorizationViewController: AuthenticationManagerDelegate {
         #endif
         
         var temp = clientDataJSON.base64EncodedString().base64Decoded()!.toDictionary()
+        #if DEBUG
         print(temp)
+        #endif
         
         temp["challenge"] = challengeFromRegistration
+        #if DEBUG
         print(temp)
+        #endif
         guard let clientData = temp.toJsonData() else { return }
         
         let request = VerifyRegistrationRequest(id: credentialID.base64urlEncodedString(),
@@ -278,11 +282,12 @@ extension ASAuthorizationViewController: AuthenticationManagerDelegate {
         print("Authentication-clientDataJSON：", clientDataJSON)
         print("Authentication-clientDataJSON：", clientDataJSON.base64EncodedString())
         print("Authentication-clientDataJSON：", clientDataJSON.base64EncodedString().base64Decoded()!)
+        print("allowCredentials：", allowCredentials)
         print("==============================")
         #endif
-        
-        let request = VerifyAuthenticationRequest(id: allowCredentials[0].id,
-                                                  rawId: allowCredentials[0].id,
+
+        let request = VerifyAuthenticationRequest(id: allowCredentials.last!.id,
+                                                  rawId: allowCredentials.last!.id,
                                                   response: VerifyAuthenticationRequest.Response(authenticatorData: authenticatorData!,
                                                                                                  clientDataJSON: clientDataJSON,
                                                                                                  signature: signature!,
@@ -298,7 +303,7 @@ extension ASAuthorizationViewController: AuthenticationManagerDelegate {
                 print(results)
                 if results.verified {
                     Alert.showAlertWith(title: "Authentication Results",
-                                        message: "username：\(results.username)",
+                                        message: "Succeed！",
                                         confirmTitle: "Close",
                                         vc: self,
                                         confirm: nil)

@@ -1,5 +1,5 @@
 //
-//  AuthenticationManager.swift
+//  PasskeysManager.swift
 //  WebAuthn+FIDO2-Test
 //
 //  Created by Leo Ho on 2022/9/14.
@@ -10,13 +10,13 @@ import AuthenticationServices
 import os
 import WebAuthnKit
 
-class AuthenticationManager: NSObject {
+class PasskeysManager: NSObject {
     
     let domain = "zero-trust-test.nutc-imac.com"
     
     var authenticationAnchor: ASPresentationAnchor?
         
-    var delegate: AuthenticationManagerDelegate?
+    var delegate: PasskeysManagerDelegate?
     
     // MARK: PassKeys signUp
     
@@ -69,7 +69,7 @@ class AuthenticationManager: NSObject {
             // If credentials are available, presents a modal sign-in sheet.
             // If there are no locally saved credentials, no UI appears and
             // the system passes ASAuthorizationError.Code.canceled to call
-            // `AuthenticationManager.authorizationController(controller:didCompleteWithError:)`.
+            // `PasskeysManager.authorizationController(controller:didCompleteWithError:)`.
             authController.performRequests(options: .preferImmediatelyAvailableCredentials)
         } else {
             // If credentials are available, presents a modal sign-in sheet.
@@ -99,7 +99,7 @@ class AuthenticationManager: NSObject {
     }
 }
 
-extension AuthenticationManager: ASAuthorizationControllerDelegate {
+extension PasskeysManager: ASAuthorizationControllerDelegate {
     
     func authorizationController(controller: ASAuthorizationController,
                                  didCompleteWithAuthorization authorization: ASAuthorization) {
@@ -110,19 +110,11 @@ extension AuthenticationManager: ASAuthorizationControllerDelegate {
             // Verify the attestationObject and clientDataJSON with your service.
             // The attestationObject contains the user's new public key to store and use for subsequent sign-ins.
             
-//            let attestationObject = credentialRegistration.rawAttestationObject
-//            let clientDataJSON = credentialRegistration.rawClientDataJSON
-//            let credentialID = credentialRegistration.credentialID
-            
             delegate?.signUpWithPassKeys?(with: credentialRegistration)
             // After the server verifies the registration and creates the user account, sign in the user with the new account.
         case let credentialAssertion as ASAuthorizationPlatformPublicKeyCredentialAssertion:
             logger.log("A passkey was used to sign in: \(credentialAssertion)")
             // Verify the below signature and clientDataJSON with your service for the given userID.
-            
-//             let signature = credentialAssertion.signature
-//             let clientDataJSON = credentialAssertion.rawClientDataJSON
-//             let userID = credentialAssertion.userID
             
             delegate?.signInWithPassKeys?(with: credentialAssertion)
             // After the server verifies the assertion, sign in the user.
@@ -160,14 +152,14 @@ extension AuthenticationManager: ASAuthorizationControllerDelegate {
     }
 }
 
-extension AuthenticationManager: ASAuthorizationControllerPresentationContextProviding {
+extension PasskeysManager: ASAuthorizationControllerPresentationContextProviding {
     
     func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
         return authenticationAnchor!
     }
 }
 
-@objc protocol AuthenticationManagerDelegate: NSObjectProtocol {
+@objc protocol PasskeysManagerDelegate: NSObjectProtocol {
     
     @objc optional func signUpWithPassKeys(with credentialRegistration: ASAuthorizationPlatformPublicKeyCredentialRegistration)
     

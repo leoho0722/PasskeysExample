@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		AE706A67FDF0987035288689 /* Pods_WebAuthn_FIDO2_Test.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F33C8C64B9FA3FBAFF944E6 /* Pods_WebAuthn_FIDO2_Test.framework */; };
-		D00206AE28D308DC00B742E3 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00206AD28D308DC00B742E3 /* AuthenticationManager.swift */; };
+		D00206AE28D308DC00B742E3 /* PasskeysManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00206AD28D308DC00B742E3 /* PasskeysManager.swift */; };
 		D05D7B3B28D19B6400769585 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D7B3A28D19B6400769585 /* AppDelegate.swift */; };
 		D05D7B3D28D19B6400769585 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D05D7B3C28D19B6400769585 /* SceneDelegate.swift */; };
 		D05D7B4428D19B6500769585 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D05D7B4328D19B6500769585 /* Assets.xcassets */; };
@@ -23,8 +23,8 @@
 		D0D2A5E328D75D9E0010C791 /* UserPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D2A5E228D75D9E0010C791 /* UserPreferences.swift */; };
 		D0D2A5EA28E177680010C791 /* GenerateAuthenticationOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D2A5E928E177680010C791 /* GenerateAuthenticationOptions.swift */; };
 		D0D2A5EC28E177810010C791 /* VerifyAuthenticationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D2A5EB28E177810010C791 /* VerifyAuthenticationResponse.swift */; };
-		D0D2A5EF28E17AC00010C791 /* ASAuthorizationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D2A5ED28E17AC00010C791 /* ASAuthorizationViewController.swift */; };
-		D0D2A5F028E17AC00010C791 /* ASAuthorizationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0D2A5EE28E17AC00010C791 /* ASAuthorizationViewController.xib */; };
+		D0D2A5EF28E17AC00010C791 /* PasskeysViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D2A5ED28E17AC00010C791 /* PasskeysViewController.swift */; };
+		D0D2A5F028E17AC00010C791 /* PasskeysViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = D0D2A5EE28E17AC00010C791 /* PasskeysViewController.xib */; };
 		D0D2A5F228E19F3C0010C791 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0D2A5F128E19F3C0010C791 /* Alert.swift */; };
 /* End PBXBuildFile section */
 
@@ -32,7 +32,7 @@
 		1346D843E56D6816E86CF120 /* Pods-WebAuthn+FIDO2-Test.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebAuthn+FIDO2-Test.debug.xcconfig"; path = "Target Support Files/Pods-WebAuthn+FIDO2-Test/Pods-WebAuthn+FIDO2-Test.debug.xcconfig"; sourceTree = "<group>"; };
 		2E1D8BE2B8208E0F2460BF19 /* Pods-WebAuthn+FIDO2-Test.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WebAuthn+FIDO2-Test.release.xcconfig"; path = "Target Support Files/Pods-WebAuthn+FIDO2-Test/Pods-WebAuthn+FIDO2-Test.release.xcconfig"; sourceTree = "<group>"; };
 		6F33C8C64B9FA3FBAFF944E6 /* Pods_WebAuthn_FIDO2_Test.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WebAuthn_FIDO2_Test.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D00206AD28D308DC00B742E3 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		D00206AD28D308DC00B742E3 /* PasskeysManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasskeysManager.swift; sourceTree = "<group>"; };
 		D05D7B3728D19B6400769585 /* WebAuthn+FIDO2-Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "WebAuthn+FIDO2-Test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D05D7B3A28D19B6400769585 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D05D7B3C28D19B6400769585 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -50,8 +50,8 @@
 		D0D2A5E228D75D9E0010C791 /* UserPreferences.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserPreferences.swift; sourceTree = "<group>"; };
 		D0D2A5E928E177680010C791 /* GenerateAuthenticationOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateAuthenticationOptions.swift; sourceTree = "<group>"; };
 		D0D2A5EB28E177810010C791 /* VerifyAuthenticationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyAuthenticationResponse.swift; sourceTree = "<group>"; };
-		D0D2A5ED28E17AC00010C791 /* ASAuthorizationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ASAuthorizationViewController.swift; sourceTree = "<group>"; };
-		D0D2A5EE28E17AC00010C791 /* ASAuthorizationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ASAuthorizationViewController.xib; sourceTree = "<group>"; };
+		D0D2A5ED28E17AC00010C791 /* PasskeysViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasskeysViewController.swift; sourceTree = "<group>"; };
+		D0D2A5EE28E17AC00010C791 /* PasskeysViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PasskeysViewController.xib; sourceTree = "<group>"; };
 		D0D2A5F128E19F3C0010C791 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,7 +78,7 @@
 		D00206B128D42A0B00B742E3 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				D00206AD28D308DC00B742E3 /* AuthenticationManager.swift */,
+				D00206AD28D308DC00B742E3 /* PasskeysManager.swift */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -86,8 +86,8 @@
 		D00206BC28D475DC00B742E3 /* ASAuthorization */ = {
 			isa = PBXGroup;
 			children = (
-				D0D2A5ED28E17AC00010C791 /* ASAuthorizationViewController.swift */,
-				D0D2A5EE28E17AC00010C791 /* ASAuthorizationViewController.xib */,
+				D0D2A5ED28E17AC00010C791 /* PasskeysViewController.swift */,
+				D0D2A5EE28E17AC00010C791 /* PasskeysViewController.xib */,
 			);
 			path = ASAuthorization;
 			sourceTree = "<group>";
@@ -115,7 +115,6 @@
 			children = (
 				D05D7B5928D19E0900769585 /* WebAuthn+FIDO2-Test.entitlements */,
 				D05D7B5428D19C2A00769585 /* Model */,
-				D05D7B5328D19C2500769585 /* View */,
 				D05D7B5228D19C1B00769585 /* Controller */,
 				D05D7B3A28D19B6400769585 /* AppDelegate.swift */,
 				D05D7B3C28D19B6400769585 /* SceneDelegate.swift */,
@@ -133,13 +132,6 @@
 				D00206BC28D475DC00B742E3 /* ASAuthorization */,
 			);
 			path = Controller;
-			sourceTree = "<group>";
-		};
-		D05D7B5328D19C2500769585 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		D05D7B5428D19C2A00769585 /* Model */ = {
@@ -247,7 +239,7 @@
 			files = (
 				D05D7B4728D19B6500769585 /* LaunchScreen.storyboard in Resources */,
 				D05D7B4428D19B6500769585 /* Assets.xcassets in Resources */,
-				D0D2A5F028E17AC00010C791 /* ASAuthorizationViewController.xib in Resources */,
+				D0D2A5F028E17AC00010C791 /* PasskeysViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -311,9 +303,9 @@
 				D05D7B5E28D1AB9800769585 /* GenerateRegistrationOptions.swift in Sources */,
 				D05D7B5628D19D2200769585 /* BaseViewController.swift in Sources */,
 				D05D7B6028D1B60200769585 /* VerifyRegistrationResponse.swift in Sources */,
-				D0D2A5EF28E17AC00010C791 /* ASAuthorizationViewController.swift in Sources */,
+				D0D2A5EF28E17AC00010C791 /* PasskeysViewController.swift in Sources */,
 				D05D7B3B28D19B6400769585 /* AppDelegate.swift in Sources */,
-				D00206AE28D308DC00B742E3 /* AuthenticationManager.swift in Sources */,
+				D00206AE28D308DC00B742E3 /* PasskeysManager.swift in Sources */,
 				D05D7B3D28D19B6400769585 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
