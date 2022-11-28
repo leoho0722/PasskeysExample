@@ -237,7 +237,7 @@ extension PasskeysViewController: PasskeysManagerDelegate {
                 print(results)
                 if results.verified {
                     Alert.showAlertWith(title: "Registration Results",
-                                        message: "username：\(results.username)",
+                                        message: "Registration Succeed！",
                                         confirmTitle: "Close",
                                         vc: self,
                                         confirm: nil)
@@ -303,7 +303,7 @@ extension PasskeysViewController: PasskeysManagerDelegate {
                 print(results)
                 if results.verified {
                     Alert.showAlertWith(title: "Authentication Results",
-                                        message: "Succeed！",
+                                        message: "Authentication Succeed！",
                                         confirmTitle: "Close",
                                         vc: self,
                                         confirm: nil)
