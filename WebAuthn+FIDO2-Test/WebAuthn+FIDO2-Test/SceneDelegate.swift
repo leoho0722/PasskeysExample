@@ -57,3 +57,52 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 }
+
+extension SceneDelegate {
+
+    // 當 App 有在後台時，才會觸發這個 Function
+    // App 從後台滑掉，則不會觸發，需改用 willConnectTo 的方法來觸發
+    func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
+        continueWithUniversalLinks(scene: scene, continue: userActivity)
+    }
+    
+    func continueWithUniversalLinks(scene: UIScene, continue userActivity: NSUserActivity) {
+        if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
+            
+            guard let webpageURL = userActivity.webpageURL else { return }
+            print("webPageURL：", webpageURL.absoluteString)
+            
+            guard let components = NSURLComponents(url: webpageURL, resolvingAgainstBaseURL: true) else {
+                print("Invalid components")
+                return
+            }
+            guard let path = components.path else {
+                print("Invalid components.path")
+                return
+            }
+            guard let queryItems = components.queryItems else {
+                print("Invalid components.queryItems")
+                return
+            }
+            guard let uid = queryItems[0].value else {
+                print("Invalid components.queryItems[0].value")
+                return
+            }
+            guard let domain = queryItems[1].value else {
+                print("Invalid components.queryItems[1].value")
+                return
+            }
+            #if DEBUG
+            print("path：\(path)")
+            print("uid：\(uid)")
+            print("domain：\(domain)")
+            #endif
+            
+            Alert.showAlertWith(title: path,
+                                message: "uid：\(uid)\ndomain：\(domain)",
+                                confirmTitle: "Close",
+                                vc: UIApplication.shared.topMostVisibleViewController!,
+                                confirm: nil)
+        }
+    }
+}

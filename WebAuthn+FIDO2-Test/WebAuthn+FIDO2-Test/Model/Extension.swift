@@ -7,6 +7,30 @@
 
 import UIKit
 
+extension UIApplication {
+    
+    /// Top visible viewcontroller
+    var topMostVisibleViewController: UIViewController? {
+        if #available(iOS 15, *) {
+            guard let navigationController = UIApplication.shared
+                .connectedScenes
+                .compactMap({ $0 as? UIWindowScene })
+                .flatMap({ $0.windows })
+                .first(where: { $0.isKeyWindow })?.rootViewController as? UINavigationController else {
+                return nil
+            }
+            return navigationController.visibleViewController
+        } else {
+            guard let navigationController = UIApplication.shared
+                .windows
+                .first(where: { $0.isKeyWindow })?.rootViewController as? UINavigationController else {
+                return nil
+            }
+            return navigationController.visibleViewController
+        }
+    }
+}
+
 extension UIButton {
     
     func setButtonTitle(title: String, state: UIControl.State = .normal) {
