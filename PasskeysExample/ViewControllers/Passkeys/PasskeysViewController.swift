@@ -103,7 +103,7 @@ class PasskeysViewController: BaseViewController {
                     print(challengeFromRegistration)
                     print(results.challenge.base64URLEncodedToBase64)
                     print(results.challenge.base64URLEncodedToBase64.base64Decoded()!)
-                    print(results.challenge.base64Decoded())
+                    print(String(describing: results.challenge.base64Decoded()))
                     #endif
                     
                     guard let window = self.view.window else {
