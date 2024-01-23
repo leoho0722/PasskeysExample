@@ -5,9 +5,9 @@
 //  Created by Leo Ho on 2022/9/26.
 //
 
-import UIKit
 import AuthenticationServices
 import LoginSDK
+import UIKit
 
 class PasskeysViewController: BaseViewController {
     
@@ -103,6 +103,7 @@ class PasskeysViewController: BaseViewController {
                     print(challengeFromRegistration)
                     print(results.challenge.base64URLEncodedToBase64)
                     print(results.challenge.base64URLEncodedToBase64.base64Decoded()!)
+                    print(results.challenge.base64Decoded())
                     #endif
                     
                     guard let window = self.view.window else {
@@ -209,25 +210,14 @@ extension PasskeysViewController: PasskeysManagerDelegate {
         print("==============================")
         #endif
         
-        var temp = clientDataJSON.base64EncodedString().base64Decoded()!.toDictionary()
-        #if DEBUG
-        print(temp)
-        #endif
-        
-        temp["challenge"] = challengeFromRegistration
-        #if DEBUG
-        print(temp)
-        #endif
-        
-        guard let clientData = temp.toJsonData() else { return }
-        
         let request = VerifyRegistrationRequest(id: credentialID.base64urlEncodedString(),
                                                 rawId: credentialID.base64urlEncodedString(),
                                                 response: VerifyRegistrationRequest.Response(attestationObject: attestationObject!,
-                                                                                             clientDataJSON: clientData),
+                                                                                             clientDataJSON: clientDataJSON),
                                                 type: "public-key",
                                                 clientExtensionResults: VerifyRegistrationRequest.ClientExtensionResults(),
                                                 transports: ["internal"])
+        print("VerifyRegistrationRequest: ",request)
         
         Task {
             do {

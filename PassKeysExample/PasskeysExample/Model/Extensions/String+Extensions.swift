@@ -19,7 +19,13 @@ extension String {
     }
     
     func base64Decoded() -> String? {
-        guard let data = Data(base64Encoded: self) else { return nil }
+        var encoded = self
+        if encoded.count % 4 > 0 {
+            encoded += String(repeating: "=", count: 4 - (encoded.count % 4))
+        }
+        guard let data = Data(base64Encoded: encoded) else {
+            return nil
+        }
         return String(data: data, encoding: .utf8)
     }
     

@@ -5,7 +5,6 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>webcredentials:zero-trust-test.nutc-imac.com?mode=developer</string>
-		<string>applinks:zero-trust-test.nutc-imac.com</string>
 	</array>
 </dict>
 </plist>
