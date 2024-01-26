@@ -13,6 +13,8 @@ struct VerifyAuthenticationRequest: Codable {
     
     var rawId: String
     
+    var username: String
+    
     var response: Response
     
     var type: String

@@ -85,14 +85,18 @@ class PasskeysViewController: BaseViewController {
     }
     
     @IBAction func opModeBtnClicked(_ sender: UIButton) {
+        guard let username = txfUsername.text else {
+            return
+        }
+        
         switch selectedIndex {
             // MARK: Registration
         case 0:
-            let request = GenerateRegistrationOptionsRequest()
+            let request = GenerateRegistrationOptionsRequest(username: username)
             
             Task {
                 do {
-                    let results: GenerateRegistrationOptionsResponse = try await NetworkManager.shared.requestData(method: .get,
+                    let results: GenerateRegistrationOptionsResponse = try await NetworkManager.shared.requestData(method: .post,
                                                                                                                    path: .generateRegistrationOptions,
                                                                                                                    parameters: request)
                     
@@ -109,8 +113,6 @@ class PasskeysViewController: BaseViewController {
                     guard let window = self.view.window else {
                         fatalError("The view was not in the app's view hierarchy!")
                     }
-                    
-                    guard let username = txfUsername.text else { return }
                     
                     passkeysManager.signUpWith(userName: username,
                                                challenge: results.challenge,
@@ -136,11 +138,11 @@ class PasskeysViewController: BaseViewController {
             }
             // MARK: Authentication
         case 1:
-            let request = GenerateAuthenticationOptionsRequest()
+            let request = GenerateAuthenticationOptionsRequest(username: username)
             
             Task {
                 do {
-                    let results: GenerateAuthenticationOptionsResponse = try await NetworkManager.shared.requestData(method: .get,
+                    let results: GenerateAuthenticationOptionsResponse = try await NetworkManager.shared.requestData(method: .post,
                                                                                                                      path: .generateAuthenticationOptions,
                                                                                                                      parameters: request)
                     
@@ -212,6 +214,7 @@ extension PasskeysViewController: PasskeysManagerDelegate {
         
         let request = VerifyRegistrationRequest(id: credentialID.base64urlEncodedString(),
                                                 rawId: credentialID.base64urlEncodedString(),
+                                                username: txfUsername.text!,
                                                 response: VerifyRegistrationRequest.Response(attestationObject: attestationObject!,
                                                                                              clientDataJSON: clientDataJSON),
                                                 type: "public-key",
@@ -278,6 +281,7 @@ extension PasskeysViewController: PasskeysManagerDelegate {
         
         let request = VerifyAuthenticationRequest(id: allowCredentials.last!.id,
                                                   rawId: allowCredentials.last!.id,
+                                                  username: txfUsername.text!,
                                                   response: VerifyAuthenticationRequest.Response(authenticatorData: authenticatorData!,
                                                                                                  clientDataJSON: clientDataJSON,
                                                                                                  signature: signature!,

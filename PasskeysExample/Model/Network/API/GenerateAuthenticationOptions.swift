@@ -9,6 +9,7 @@ import Foundation
 
 struct GenerateAuthenticationOptionsRequest: Codable {
     
+    var username: String
 }
 
 struct GenerateAuthenticationOptionsResponse: Decodable {

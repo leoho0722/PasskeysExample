@@ -43,16 +43,20 @@ class NetworkManager: NSObject {
         print(String(describing: String(data: data, encoding: .utf8)))
         #endif
 
-        let jsonDecoder = JSONDecoder()
-        guard let results = try? jsonDecoder.decode(D.self, from: data) else {
+        do {
+            let jsonDecoder = JSONDecoder()
+            let results = try jsonDecoder.decode(D.self, from: data)
+            
+            #if DEBUG
+            self.printNeworkProgress(urlRequest, parameters, results)
+            #endif
+            
+            return results
+        } catch {
+            print("jsonDecodeFailed: \(error as! DecodingError)")
             throw NetworkConstants.RequestError.jsonDecodeFailed
         }
-        
-        #if DEBUG
-        self.printNeworkProgress(urlRequest, parameters, results)
-        #endif
-        
-        return results
+
     }
     
     private func handleHTTPMethod<E>(_ method: NetworkConstants.HTTPMethod,

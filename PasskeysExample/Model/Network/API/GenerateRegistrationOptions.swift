@@ -9,6 +9,7 @@ import Foundation
 
 struct GenerateRegistrationOptionsRequest: Codable {
     
+    var username: String
 }
 
 struct GenerateRegistrationOptionsResponse: Decodable {
